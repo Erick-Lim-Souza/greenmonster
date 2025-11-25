@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<!-- 
+    Project: GREEN MONSTER PROJECT v5.2 (Fix)
+    Theme: Toxic Green & Deep Void
+    Fixes: Global Scope binding for navigation functions
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Monster Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        monster: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            glow: '#39ff14'
+                        },
+                        dark: {
+                            900: '#050505',
+                            800: '#0a0a0a',
+                            700: '#121212'
+                        }
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            background-image: radial-gradient(circle at 50% 0%, #112211 0%, #050505 60%);
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #166534; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #22c55e; }
+
+        /* Monster Card */
+        .monster-card {
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(34, 197, 94, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .monster-card:hover {
+            border-color: rgba(34, 197, 94, 0.4);
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+        }
+
+        .hidden-section { display: none; }
+        
+        /* Table Styles */
+        .workout-table { width: 100%; border-collapse: collapse; }
+        .workout-table th { background: rgba(34, 197, 94, 0.1); color: #4ade80; padding: 12px; text-align: left; font-family: 'Rajdhani'; text-transform: uppercase; border-bottom: 1px solid rgba(34, 197, 94, 0.2); }
+        .workout-table td { border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px; font-size: 0.9rem; color: #cbd5e1; }
+        .workout-table tr:last-child td { border-bottom: none; }
+
+        /* Water Alert */
+        .water-alert {
+            background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, rgba(6,182,212,0.05) 100%);
+            border-left: 4px solid #06b6d4;
+        }
+
+        /* Recipe Filter Active State */
+        .filter-btn.active {
+            background-color: rgba(34, 197, 94, 0.2);
+            border-color: #4ade80;
+            color: white;
+        }
+
+        /* Print Styles */
+        @media print {
+            body { background: white; color: black; }
+            nav, footer, .no-print { display: none !important; }
+            .monster-card { background: white; border: 1px solid #ddd; box-shadow: none; color: black; }
+            .text-white { color: black !important; }
+            .text-gray-400 { color: #333 !important; }
+            .workout-table th { background: #eee; color: black; border-bottom: 2px solid #000; }
+            .workout-table td { border-bottom: 1px solid #ccc; color: black; }
+            #output-content { overflow: visible; height: auto; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 monster-card border-b border-green-900/30 no-print">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="showSection('home')">
+                    <i class="fas fa-biohazard text-3xl text-monster-500"></i>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-display font-bold text-white tracking-wider">GREEN <span class="text-monster-500">MONSTER</span></span>
+                        <span class="text-[10px] text-gray-500 tracking-[0.2em]">PROJECT v5.2</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-1">
+                    <button onclick="showSection('neuro-trainer')" class="nav-btn px-4 py-2 text-sm font-bold text-gray-300 hover:text-monster-400 transition-all hover:bg-white/5 rounded"><i class="fas fa-dumbbell mr-2"></i>TREINO & DOWNLOAD</button>
+                    <button onclick="showSection('kitchen')" class="nav-btn px-4 py-2 text-sm font-bold text-gray-300 hover:text-monster-400 transition-all hover:bg-white/5 rounded"><i class="fas fa-utensils mr-2"></i>77 RECEITAS</button>
+                    <button onclick="showSection('calculator')" class="nav-btn px-4 py-2 text-sm font-bold text-gray-300 hover:text-monster-400 transition-all hover:bg-white/5 rounded"><i class="fas fa-calculator mr-2"></i>BIO-METRICA</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTAINER -->
+    <main class="pt-24 min-h-screen pb-12">
+
+        <!-- HOME -->
+        <div id="home" class="section-view max-w-7xl mx-auto px-4 flex flex-col items-center justify-center min-h-[70vh] text-center">
+            <div class="inline-block px-4 py-1 rounded-full border border-monster-500/30 bg-monster-500/10 text-monster-400 text-xs font-mono tracking-widest mb-6 animate-pulse-fast">
+                PROTOCOLOS CARREGADOS // AB-ABC-ABCD-ABCDE
+            </div>
+            <h1 class="text-6xl md:text-8xl font-display font-bold text-white mb-6 leading-none">
+                BUILD YOUR <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-monster-600 via-monster-400 to-white">LEGACY</span>
+            </h1>
+            <p class="max-w-2xl text-gray-400 text-lg mb-10 font-light">
+                Plataforma integrada de Biohacking: Gere treinos completos, exporte para PDF/Excel, controle seu IMC e acesse o livro de receitas anabólicas.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                <button onclick="showSection('neuro-trainer')" class="px-8 py-4 bg-monster-600 hover:bg-monster-500 text-white font-bold rounded shadow-[0_0_20px_rgba(34,197,94,0.4)] flex items-center justify-center gap-2">
+                    INICIAR NEURO-TRAINER <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- NEURO-TRAINER -->
+        <div id="neuro-trainer" class="section-view hidden-section max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Form -->
+                <div class="lg:col-span-4 monster-card p-6 rounded-xl h-fit no-print">
+                    <h3 class="text-xl font-bold text-white mb-4 border-l-4 border-monster-500 pl-3">Configuração Biológica</h3>
+                    <form id="workout-form" class="space-y-4" onsubmit="event.preventDefault(); generateFullWorkout();">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Peso (kg)</label>
+                                <input type="number" id="w-weight" class="w-full bg-dark-800 border border-white/10 rounded p-2 text-white text-sm focus:border-monster-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Altura (cm)</label>
+                                <input type="number" id="w-height" class="w-full bg-dark-800 border border-white/10 rounded p-2 text-white text-sm focus:border-monster-500 outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Objetivo de Peso (kg)</label>
+                            <input type="number" id="w-target" class="w-full bg-dark-800 border border-white/10 rounded p-2 text-white text-sm focus:border-monster-500 outline-none">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Gênero</label>
+                                <select id="w-gender" class="w-full bg-dark-800 border border-white/10 rounded p-2 text-white text-sm">
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Feminino</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Nível</label>
+                                <select id="w-level" class="w-full bg-dark-800 border border-white/10 rounded p-2 text-white text-sm">
+                                    <option value="iniciante">Iniciante</option>
+                                    <option value="intermediario">Intermediário</option>
+                                    <option value="avancado">Avançado</option>
+                                    <option value="maromba">Maromba</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Divisão de Treino</label>
+                            <select id="w-split" class="w-full bg-dark-800 border border-white/10 rounded p-2 text-white text-sm focus:border-monster-500">
+                                <option value="AB">AB (2x ou 4x Semana)</option>
+                                <option value="ABC">ABC (3x ou 6x Semana)</option>
+                                <option value="ABCD">ABCD (4x Semana)</option>
+                                <option value="ABCDE">ABCDE (5x Semana)</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Objetivo</label>
+                            <select id="w-goal" class="w-full bg-dark-800 border border-white/10 rounded p-2 text-white text-sm">
+                                <option value="hipertrofia">Hipertrofia / Massa</option>
+                                <option value="definicao">Definição / Cutting</option>
+                                <option value="emagrecimento">Emagrecimento</option>
+                                <option value="forca">Força Bruta</option>
+                                <option value="resistencia">Resistência</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Suplementação</label>
+                            <input type="text" id="w-supps" placeholder="Whey, Creatina, etc..." class="w-full bg-dark-800 border border-white/10 rounded p-2 text-white text-sm focus:border-monster-500 outline-none">
+                        </div>
+
+                        <button type="submit" class="w-full py-3 bg-monster-600 hover:bg-monster-500 text-white font-bold uppercase text-sm rounded shadow-lg transition-all">
+                            <i class="fas fa-cogs mr-2"></i> Gerar Protocolo
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Output -->
+                <div class="lg:col-span-8 monster-card p-8 rounded-xl min-h-[800px] flex flex-col relative" id="workout-print-area">
+                    <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-6 no-print">
+                        <h2 class="text-2xl font-display font-bold text-white">PROTOCOLO <span class="text-monster-500">GERADO</span></h2>
+                        <div class="flex gap-2">
+                            <button onclick="exportPDF()" class="px-3 py-1 text-xs bg-dark-800 border border-white/20 rounded hover:bg-white/10 text-white"><i class="fas fa-file-pdf mr-1"></i> PDF / Imprimir</button>
+                            <button onclick="exportExcel()" class="px-3 py-1 text-xs bg-dark-800 border border-white/20 rounded hover:bg-white/10 text-white"><i class="fas fa-file-excel mr-1"></i> Excel (CSV)</button>
+                        </div>
+                    </div>
+
+                    <div id="workout-output" class="flex-1 overflow-y-auto custom-scrollbar">
+                        <div class="h-full flex flex-col items-center justify-center opacity-30">
+                            <i class="fas fa-microchip text-6xl text-gray-600 mb-4"></i>
+                            <p>Aguardando dados para processamento...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CYBER KITCHEN -->
+        <div id="kitchen" class="section-view hidden-section max-w-7xl mx-auto px-4 py-8">
+            <div class="mb-8 border-l-4 border-monster-500 pl-4 flex flex-col md:flex-row justify-between items-end">
+                <div>
+                    <h2 class="text-3xl font-display font-bold text-white">CYBER KITCHEN <span class="text-monster-500">77</span></h2>
+                    <p class="text-gray-400">Banco de dados completo de receitas anabólicas.</p>
+                </div>
+                
+                <div class="flex gap-2 mt-4 md:mt-0 overflow-x-auto no-print">
+                    <button class="filter-btn active px-4 py-2 text-xs font-bold border border-white/20 rounded text-gray-400 transition-all" onclick="filterRecipes('all', this)">TODAS</button>
+                    <button class="filter-btn px-4 py-2 text-xs font-bold border border-white/20 rounded text-gray-400 transition-all" onclick="filterRecipes('lowcarb', this)">LOW CARB</button>
+                    <button class="filter-btn px-4 py-2 text-xs font-bold border border-white/20 rounded text-gray-400 transition-all" onclick="filterRecipes('proteica', this)">PROTEICAS</button>
+                    <button class="filter-btn px-4 py-2 text-xs font-bold border border-white/20 rounded text-gray-400 transition-all" onclick="filterRecipes('doce', this)">DOCES FIT</button>
+                    <button class="filter-btn px-4 py-2 text-xs font-bold border border-white/20 rounded text-gray-400 transition-all" onclick="filterRecipes('almoco', this)">REFEIÇÕES</button>
+                </div>
+            </div>
+            
+            <!-- Recipe Grid -->
+            <div id="recipe-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Populated via JS from recipesDB -->
+            </div>
+        </div>
+
+        <!-- CALCULATOR -->
+        <div id="calculator" class="section-view hidden-section max-w-4xl mx-auto px-4 py-8">
+            <div class="monster-card p-8 rounded-xl">
+                <h2 class="text-3xl font-display font-bold text-white mb-6 text-center">BIO-METRICA <span class="text-monster-500">HUB</span></h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Input -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-white border-b border-white/10 pb-2">Dados Corporais</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs text-gray-500">Peso (kg)</label>
+                                <input type="number" id="c-weight" class="w-full bg-dark-900 border border-white/10 rounded p-3 text-white focus:border-monster-500">
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-500">Altura (cm)</label>
+                                <input type="number" id="c-height" class="w-full bg-dark-900 border border-white/10 rounded p-3 text-white focus:border-monster-500">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500">Idade</label>
+                            <input type="number" id="c-age" class="w-full bg-dark-900 border border-white/10 rounded p-3 text-white focus:border-monster-500">
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500">Atividade</label>
+                            <select id="c-activity" class="w-full bg-dark-900 border border-white/10 rounded p-3 text-white text-sm">
+                                <option value="1.2">Sedentário</option>
+                                <option value="1.375">Leve</option>
+                                <option value="1.55">Moderado</option>
+                                <option value="1.725">Intenso</option>
+                                <option value="1.9">Atleta</option>
+                            </select>
+                        </div>
+                        <div class="flex gap-4 pt-2">
+                            <label class="flex items-center gap-2 text-gray-300"><input type="radio" name="c-gender" value="m" checked class="accent-monster-500"> Masc</label>
+                            <label class="flex items-center gap-2 text-gray-300"><input type="radio" name="c-gender" value="f" class="accent-monster-500"> Fem</label>
+                        </div>
+                        <button onclick="calculateBioMetrics()" class="w-full py-3 bg-monster-600 hover:bg-monster-500 text-white font-bold rounded mt-4">CALCULAR TUDO</button>
+                    </div>
+
+                    <!-- Results -->
+                    <div id="calc-results" class="hidden space-y-6">
+                        <!-- IMC -->
+                        <div class="bg-dark-900 p-4 rounded border border-white/5">
+                            <p class="text-xs text-gray-500 uppercase">Índice de Massa Corporal (IMC)</p>
+                            <div class="flex justify-between items-end">
+                                <span id="res-imc" class="text-3xl font-bold text-white">0.0</span>
+                                <span id="res-imc-status" class="text-sm font-bold text-monster-400">Normal</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-800 mt-2 rounded-full overflow-hidden">
+                                <div id="imc-bar" class="h-full bg-monster-500 w-0 transition-all duration-1000"></div>
+                            </div>
+                        </div>
+
+                        <!-- TMB/TDEE -->
+                        <div class="bg-dark-900 p-4 rounded border border-white/5">
+                            <div class="flex justify-between mb-2">
+                                <div>
+                                    <p class="text-xs text-gray-500">Metabolismo Basal (TMB)</p>
+                                    <p id="res-tmb" class="text-xl font-bold text-white">0 kcal</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xs text-gray-500">Gasto Total (TDEE)</p>
+                                    <p id="res-tdee" class="text-xl font-bold text-monster-400">0 kcal</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Strategy -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-red-900/20 p-3 rounded border border-red-500/20 text-center">
+                                <p class="text-xs text-red-400">Cutting (-20%)</p>
+                                <p id="res-cut" class="text-lg font-bold text-white">0</p>
+                            </div>
+                            <div class="bg-green-900/20 p-3 rounded border border-green-500/20 text-center">
+                                <p class="text-xs text-green-400">Bulking (+15%)</p>
+                                <p id="res-bulk" class="text-lg font-bold text-white">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-green-900/20 bg-dark-900 py-8 text-center no-print">
+        <p class="text-gray-500 text-sm font-mono">© 2025 GREEN MONSTER PROJECT. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- RECIPE MODAL -->
+    <div id="recipe-modal" class="fixed inset-0 z-[60] bg-black/90 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-dark-800 max-w-2xl w-full max-h-[90vh] overflow-y-auto rounded-xl border border-monster-500/30 shadow-2xl">
+            <div class="sticky top-0 bg-dark-800 p-4 border-b border-white/10 flex justify-between items-center">
+                <h3 id="modal-title" class="text-xl font-bold text-monster-400 uppercase">Título da Receita</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <div class="p-6 space-y-6">
+                <div>
+                    <h4 class="text-xs font-bold text-gray-500 uppercase mb-2">Ingredientes</h4>
+                    <ul id="modal-ingredients" class="list-disc list-inside text-gray-300 space-y-1 text-sm"></ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-gray-500 uppercase mb-2">Modo de Preparo</h4>
+                    <p id="modal-steps" class="text-gray-300 text-sm leading-relaxed whitespace-pre-line"></p>
+                </div>
+                <div class="bg-monster-900/50 p-4 rounded border border-white/5">
+                    <h4 class="text-xs font-bold text-gray-500 uppercase mb-1">Macros (Estimados)</h4>
+                    <p id="modal-macros" class="text-monster-400 font-mono text-sm"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- GLOBAL FUNCTIONS EXPORT (Fix for ReferenceError) ---
+        
+        function showSection(id) {
+            document.querySelectorAll('.section-view').forEach(el => el.classList.add('hidden-section'));
+            document.getElementById(id).classList.remove('hidden-section');
+            window.scrollTo(0,0);
+        }
+        window.showSection = showSection;
+
+        function closeModal() {
+            document.getElementById('recipe-modal').classList.add('hidden');
+        }
+        window.closeModal = closeModal;
+
+        // --- DATABASE ---
+        
+        // 1. Recipes Database (Complete)
+        const recipesDB = [
+            {
+                "id": 1,
+                "name": "Frittata de Abobrinha",
+                "cat": "lowcarb",
+                "cal": "Baixa Caloria",
+                "icon": "fa-leaf",
+                "ing": "2 abobrinhas, 2 ovos, 1 dente de alho, cebolinha, salsinha, 1/2 xic farinha de aveia, fermento, tomate.",
+                "steps": "1. Rale a abobrinha e retire a água.\n2. Misture com os ovos e ingredientes.\n3. Despeje em frigideira untada e doure 3min de cada lado."
+            },
+            {
+                "id": 2,
+                "name": "Risoto Fit de Frango",
+                "cat": "almoco",
+                "cal": "Moderada",
+                "icon": "fa-utensils",
+                "ing": "150g frango cubos, 3cs arroz integral cozido, abobrinha, brócolis, cebola, 1cs cream cheese light.",
+                "steps": "1. Refogue frango e legumes.\n2. Adicione o arroz cozido.\n3. Finalize com cream cheese e castanhas."
+            },
+            {
+                "id": 3,
+                "name": "Hambúrguer de Quinoa",
+                "cat": "lowcarb",
+                "cal": "Baixa Caloria",
+                "icon": "fa-hamburger",
+                "ing": "100g quinoa em grãos, 2cs farinha de mandioca, cebolinha, manjericão, azeite.",
+                "steps": "1. Cozinhe a quinoa.\n2. Misture com ervas e farinha.\n3. Molde e doure na frigideira."
+            },
+            {
+                "id": 4,
+                "name": "Sorvete de Banana Proteico",
+                "cat": "doce",
+                "cal": "120 kcal",
+                "icon": "fa-ice-cream",
+                "ing": "2 bananas congeladas, 1 scoop whey protein.",
+                "steps": "1. Bata as bananas congeladas no processador até virar creme.\n2. Adicione o whey e bata mais um pouco."
+            },
+            {
+                "id": 5,
+                "name": "Cookies de Castanha",
+                "cat": "doce",
+                "cal": "Moderada",
+                "icon": "fa-cookie",
+                "ing": "1 xic castanha caju, 1.5 xic farinha coco, 3cs adoçante, leite de coco, gotas de chocolate amargo.",
+                "steps": "1. Triture castanhas.\n2. Misture tudo.\n3. Molde cookies e asse 15min forno médio."
+            },
+            {
+                "id": 6,
+                "name": "Sorvete Banana com Morango",
+                "cat": "doce",
+                "cal": "75 kcal",
+                "icon": "fa-ice-cream",
+                "ing": "2 bananas, 1 xic morangos.",
+                "steps": "1. Congele as frutas picadas.\n2. Bata no processador até virar creme.\n3. Sirva imediatamente."
+            },
+            {
+                "id": 7,
+                "name": "Pudim de Chia",
+                "cat": "doce",
+                "cal": "116 kcal",
+                "icon": "fa-spoon",
+                "ing": "1cs chia, 1/2 xic leite de coco, morangos, stevia.",
+                "steps": "1. Hidrate a chia no leite de coco com stevia na geladeira (1 noite).\n2. Cubra com morangos."
+            },
+            {
+                "id": 8,
+                "name": "Beijinho Fit",
+                "cat": "doce",
+                "cal": "318 kcal (total)",
+                "icon": "fa-circle",
+                "ing": "8cs leite em pó desnatado, 1cc óleo coco, adoçante, água quente, coco ralado.",
+                "steps": "1. Bata ingredientes até dar ponto.\n2. Enrole e passe no coco ralado.\n3. Leve ao forno rápido para dourar."
+            },
+            {
+                "id": 9,
+                "name": "Brigadeiro de Colher Biomassa",
+                "cat": "doce",
+                "cal": "178 kcal",
+                "icon": "fa-spoon",
+                "ing": "1 xic biomassa banana verde, adoçante, óleo coco, chocolate 70%, leite coco.",
+                "steps": "1. Mexa biomassa, adoçante e óleo na panela.\n2. Adicione chocolate e leite de coco até dar ponto."
+            },
+            {
+                "id": 10,
+                "name": "Trufa de Aveia",
+                "cat": "doce",
+                "cal": "149 kcal",
+                "icon": "fa-cookie-bite",
+                "ing": "1cs farelo aveia, açúcar mascavo, cacau em pó, pasta amendoim.",
+                "steps": "1. Misture tudo até homogêneo.\n2. Faça bolinhas e passe no cacau."
+            },
+            {
+                "id": 11,
+                "name": "Crepioca de Chocolate",
+                "cat": "doce",
+                "cal": "164 kcal",
+                "icon": "fa-stroopwafel",
+                "ing": "1 ovo, 1 clara, 1cs tapioca, adoçante, 1cs cacau.",
+                "steps": "1. Misture e faça na frigideira como panqueca.\n2. Enrole como charuto. Pode por whey."
+            },
+            {
+                "id": 12,
+                "name": "Shake Hipercalórico",
+                "cat": "almoco",
+                "cal": "648 kcal",
+                "icon": "fa-blender",
+                "ing": "2 scoops whey, 2 copos leite integral, 1 banana, 1/2 xic aveia.",
+                "steps": "1. Bata tudo no liquidificador com gelo."
+            },
+            {
+                "id": 13,
+                "name": "Sanduíche Frango e Abacate",
+                "cat": "almoco",
+                "cal": "716 kcal",
+                "icon": "fa-bread-slice",
+                "ing": "2 fatias pão, frango grelhado, 1 abacate maduro, limão, temperos.",
+                "steps": "1. Faça pasta com abacate e limão.\n2. Monte sanduíche com frango e pasta."
+            },
+            {
+                "id": 14,
+                "name": "X-Salada Bacon Egg",
+                "cat": "almoco",
+                "cal": "850 kcal",
+                "icon": "fa-hamburger",
+                "ing": "220g patinho moído, 1 ovo, 3 fatias mussarela, bacon, pão, salada.",
+                "steps": "1. Grelhe hambúrguer e bacon.\n2. Frite o ovo.\n3. Monte o lanche completo."
+            },
+            {
+                "id": 15,
+                "name": "Mingau Proteico",
+                "cat": "proteica",
+                "cal": "440 kcal",
+                "icon": "fa-mug-hot",
+                "ing": "12 claras, 1 gema, 1/2 xic aveia, canela.",
+                "steps": "1. Bata no liquidificador.\n2. Cozinhe em fogo alto mexendo até engrossar."
+            },
+            {
+                "id": 16,
+                "name": "Barra Proteína Caseira",
+                "cat": "proteica",
+                "cal": "Alto",
+                "icon": "fa-candy-cane",
+                "ing": "2 xic aveia, 1/2 xic pasta amendoim, 4 scoops whey, linhaça, água.",
+                "steps": "1. Misture tudo.\n2. Espalhe em forma e congele por 30min.\n3. Corte em barras."
+            },
+            {
+                "id": 17,
+                "name": "Salgado Maromba",
+                "cat": "proteica",
+                "cal": "456 kcal",
+                "icon": "fa-cookie",
+                "ing": "100g ricota, 50g couve-flor, farinha linhaça, clara, frango p/ recheio.",
+                "steps": "1. Processe massa (ricota, couve, farinha).\n2. Recheie com frango.\n3. Asse 20min a 250ºC."
+            },
+            {
+                "id": 18,
+                "name": "Hambúrguer Grão de Bico",
+                "cat": "lowcarb",
+                "cal": "567 kcal",
+                "icon": "fa-leaf",
+                "ing": "1.5 xic grão bico cozido, alho, cebola, farinha integral ou aveia.",
+                "steps": "1. Processe grão de bico com temperos.\n2. Dê liga com farinha.\n3. Grelhe."
+            },
+            {
+                "id": 19,
+                "name": "Kibe Hipercalórico",
+                "cat": "almoco",
+                "cal": "2080 kcal (receita)",
+                "icon": "fa-drumstick-bite",
+                "ing": "Trigo para kibe, proteína soja, aveia, lentilha, temperos.",
+                "steps": "1. Hidrate trigo e soja.\n2. Cozinhe lentilha.\n3. Misture tudo, tempere e asse por 30min."
+            },
+            {
+                "id": 20,
+                "name": "Hamburgão de Forno",
+                "cat": "almoco",
+                "cal": "1600 kcal (receita)",
+                "icon": "fa-hamburger",
+                "ing": "Farinha integral/branca, fermento, proteina soja (recheio), tomate.",
+                "steps": "1. Faça massa de pão.\n2. Faça hambúrguer de soja.\n3. Envolva carne na massa e asse."
+            },
+            {
+                "id": 21,
+                "name": "Guacamole Low Carb",
+                "cat": "lowcarb",
+                "cal": "490 kcal",
+                "icon": "fa-lemon",
+                "ing": "1/2 abacate, limão, azeite, temperos secos.",
+                "steps": "1. Amasse abacate.\n2. Misture com limão, azeite e temperos."
+            },
+            {
+                "id": 22,
+                "name": "Salada Folhas e Castanhas",
+                "cat": "lowcarb",
+                "cal": "217 kcal",
+                "icon": "fa-leaf",
+                "ing": "Alface, agrião, nozes, castanha caju/pará, molho vinagre/azeite.",
+                "steps": "1. Misture folhas.\n2. Salpique castanhas.\n3. Regue com molho."
+            },
+            {
+                "id": 23,
+                "name": "Panqueca Castanha",
+                "cat": "lowcarb",
+                "cal": "231 kcal",
+                "icon": "fa-stroopwafel",
+                "ing": "1 ovo, 1cs farinha castanha caju, creme leite, parmesão.",
+                "steps": "1. Bata tudo.\n2. Asse em frigideira como panqueca."
+            },
+            {
+                "id": 24,
+                "name": "Pão Cetogênico",
+                "cat": "lowcarb",
+                "cal": "134 kcal",
+                "icon": "fa-bread-slice",
+                "ing": "1 ovo, 1cs farinha coco.",
+                "steps": "1. Misture ovo e farinha.\n2. Microondas 1:30min.\n3. Doure na frigideira."
+            },
+            {
+                "id": 25,
+                "name": "Tartar de Salmão",
+                "cat": "lowcarb",
+                "cal": "981 kcal (total)",
+                "icon": "fa-fish",
+                "ing": "300g salmão, azeite, mostarda dijon, abacate (guacamole).",
+                "steps": "1. Pique salmão e tempere.\n2. Faça guacamole.\n3. Monte em camadas."
+            },
+            {
+                "id": 26,
+                "name": "Arroz de Couve Flor",
+                "cat": "lowcarb",
+                "cal": "234 kcal",
+                "icon": "fa-utensils",
+                "ing": "Couve flor, manteiga ghee, sal.",
+                "steps": "1. Processe couve flor crua até virar 'grãos'.\n2. Refogue na ghee com temperos."
+            },
+            {
+                "id": 27,
+                "name": "Bauru de Travessa",
+                "cat": "lowcarb",
+                "cal": "430 kcal",
+                "icon": "fa-layer-group",
+                "ing": "1 ovo, 2cs requeijão, fermento, mussarela, peito peru, tomate.",
+                "steps": "1. Misture ovo/requeijão/fermento (massa).\n2. Microondas 2:30min.\n3. Recheie e toste."
+            },
+            {
+                "id": 28,
+                "name": "Pizza de Frigideira Fit",
+                "cat": "proteica",
+                "cal": "663 kcal (massa)",
+                "icon": "fa-pizza-slice",
+                "ing": "3 ovos, 300g frango desfiado, azeite.",
+                "steps": "1. Bata tudo no liquidificador.\n2. Asse na frigideira.\n3. Recheie e gratine."
+            },
+            {
+                "id": 29,
+                "name": "Torta de Maçã Frigideira",
+                "cat": "lowcarb",
+                "cal": "317 kcal",
+                "icon": "fa-apple-alt",
+                "ing": "1 ovo, 1/2 maçã, farinha amêndoa, creme leite, fermento.",
+                "steps": "1. Fatie maçã na frigideira untada.\n2. Cubra com massa batida.\n3. Asse tampado."
+            },
+            {
+                "id": 30,
+                "name": "Torta de Atum Proteica",
+                "cat": "proteica",
+                "cal": "Alta",
+                "icon": "fa-fish",
+                "ing": "Farinha integral, whey sem sabor, ovos, leite soja, atum, ervilhas.",
+                "steps": "1. Bata massa.\n2. Misture recheio.\n3. Asse em camadas por 25min a 230ºC."
+            },
+            {
+                "id": 31,
+                "name": "Brigadeiro Proteico Pasta",
+                "cat": "doce",
+                "cal": "Moderada",
+                "icon": "fa-circle",
+                "ing": "60g whey, 3cs leite coco, 1cs pasta amendoim.",
+                "steps": "1. Misture tudo até virar massa.\n2. Enrole."
+            },
+            {
+                "id": 32,
+                "name": "Hambúrguer de Atum",
+                "cat": "proteica",
+                "cal": "Baixa",
+                "icon": "fa-hamburger",
+                "ing": "1 lata atum, cenoura, amaranto, mostarda, pasta tofu.",
+                "steps": "1. Processe vegetais.\n2. Misture com atum e amaranto.\n3. Molde e grelhe."
+            },
+            {
+                "id": 33,
+                "name": "Vitamina Banana Proteica",
+                "cat": "almoco",
+                "cal": "Média",
+                "icon": "fa-blender",
+                "ing": "1 banana, iogurte desnatado, 30g whey, canela, café, leite.",
+                "steps": "1. Bata tudo no liquidificador."
+            },
+            {
+                "id": 34,
+                "name": "Hambúrguer Clássico",
+                "cat": "proteica",
+                "cal": "Média",
+                "icon": "fa-hamburger",
+                "ing": "500g patinho moído, 1 ovo, cebola, alho.",
+                "steps": "1. Misture carne e temperos.\n2. Molde e grelhe."
+            },
+            {
+                "id": 35,
+                "name": "Hambúrguer Frango Aveia",
+                "cat": "proteica",
+                "cal": "Baixa",
+                "icon": "fa-drumstick-bite",
+                "ing": "500g frango desfiado, 1 ovo, aveia flocos.",
+                "steps": "1. Misture ingredientes.\n2. Molde e grelhe."
+            },
+            {
+                "id": 36,
+                "name": "Escondidinho Batata Doce",
+                "cat": "almoco",
+                "cal": "Média",
+                "icon": "fa-layer-group",
+                "ing": "3 batatas doces, 250g frango desfiado, molho tomate, cottage.",
+                "steps": "1. Purê de batata.\n2. Recheio de frango com molho.\n3. Asse."
+            },
+            {
+                "id": 37,
+                "name": "Panqueca Integral",
+                "cat": "almoco",
+                "cal": "Média",
+                "icon": "fa-stroopwafel",
+                "ing": "Leite, ovos, aveia, farinha integral. Recheio: Peru/Cottage.",
+                "steps": "1. Bata massa.\n2. Frite discos.\n3. Recheie."
+            },
+            {
+                "id": 38,
+                "name": "Ovos com Lentilha",
+                "cat": "proteica",
+                "cal": "Média",
+                "icon": "fa-egg",
+                "ing": "Lentilhas cozidas, 4 ovos, pimentão vermelho.",
+                "steps": "1. Refogue lentilhas.\n2. Grelhe anéis de pimentão.\n3. Frite ovo dentro do anel."
+            },
+            {
+                "id": 39,
+                "name": "Barra Pasta Amendoim",
+                "cat": "doce",
+                "cal": "Alta",
+                "icon": "fa-candy-cane",
+                "ing": "Mel, açúcar mascavo, pasta amendoim, aveia, linhaça.",
+                "steps": "1. Aqueça mel/açúcar.\n2. Misture pasta e secos.\n3. Gele e corte."
+            },
+            {
+                "id": 40,
+                "name": "Panqueca Pasta Amendoim",
+                "cat": "doce",
+                "cal": "Média",
+                "icon": "fa-stroopwafel",
+                "ing": "Farinha, farelo trigo, ovo, pasta amendoim, leite.",
+                "steps": "1. Misture tudo.\n2. Asse em frigideira."
+            },
+            {
+                "id": 41,
+                "name": "Smoothie Amendoim",
+                "cat": "doce",
+                "cal": "Média",
+                "icon": "fa-blender",
+                "ing": "1 scoop whey, 1 banana, 1cs pasta amendoim, leite.",
+                "steps": "1. Bata tudo com gelo."
+            },
+            {
+                "id": 42,
+                "name": "Brigadeiro Amendoim",
+                "cat": "doce",
+                "cal": "Média",
+                "icon": "fa-circle",
+                "ing": "Pasta amendoim, whey chocolate, alfarroba, cacau.",
+                "steps": "1. Aqueça pasta.\n2. Misture pós.\n3. Enrole."
+            },
+            {
+                "id": 43,
+                "name": "Sanduíche Amendoim/Geleia",
+                "cat": "doce",
+                "cal": "Alta",
+                "icon": "fa-bread-slice",
+                "ing": "Pão integral, pasta amendoim, geleia sem açúcar.",
+                "steps": "1. Monte o sanduíche clássico."
+            },
+            {
+                "id": 44,
+                "name": "Granola Pasta Amendoim",
+                "cat": "doce",
+                "cal": "Alta",
+                "icon": "fa-seedling",
+                "ing": "Pasta amendoim, mel, aveia, canela.",
+                "steps": "1. Derreta pasta e mel.\n2. Misture aveia.\n3. Asse 8 min."
+            },
+            {
+                "id": 45,
+                "name": "Salada Feijão Roxo",
+                "cat": "lowcarb",
+                "cal": "Média",
+                "icon": "fa-leaf",
+                "ing": "Feijão roxo, grão bico, cebola roxa, tomate, pepino.",
+                "steps": "1. Misture tudo com limão e azeite."
+            },
+            {
+                "id": 46,
+                "name": "Salada Tailandesa",
+                "cat": "almoco",
+                "cal": "Média",
+                "icon": "fa-leaf",
+                "ing": "Alface, pimentão, manga, amendoim, coentro.",
+                "steps": "1. Misture ingredientes.\n2. Tempere com óleo gergelim (opcional)."
+            },
+            {
+                "id": 47,
+                "name": "Salada Grão de Bico/Dill",
+                "cat": "almoco",
+                "cal": "Média",
+                "icon": "fa-leaf",
+                "ing": "Grão bico, cenoura, aipo, semente abóbora, dill.",
+                "steps": "1. Misture tudo com azeite e vinagre."
+            },
+            {
+                "id": 48,
+                "name": "Salada Tomate Seco/Quinoa",
+                "cat": "almoco",
+                "cal": "Média",
+                "icon": "fa-leaf",
+                "ing": "Quinoa, tomate seco, espinafre, amêndoas.",
+                "steps": "1. Misture tudo com molho de limão e mostarda."
+            },
+            {
+                "id": 49,
+                "name": "Salada Colorida Beterraba",
+                "cat": "almoco",
+                "cal": "Média",
+                "icon": "fa-leaf",
+                "ing": "Quinoa, edamame, beterraba, cenoura, espinafre, abacate.",
+                "steps": "1. Misture vegetais.\n2. Tempere com mel e mostarda."
+            },
+            {
+                "id": 50,
+                "name": "Salada Grega Brócolis",
+                "cat": "lowcarb",
+                "cal": "Baixa",
+                "icon": "fa-leaf",
+                "ing": "Brócolis, tomate seco, cebola roxa, queijo feta, amêndoas.",
+                "steps": "1. Misture tudo com azeite e limão."
+            },
+            {
+                "id": 51,
+                "name": "Salada Batata Doce",
+                "cat": "almoco",
+                "cal": "Média",
+                "icon": "fa-leaf",
+                "ing": "Batata doce cozida, salsinha, cebolinha, mostarda dijon.",
+                "steps": "1. Tempere as batatas com o molho de mostarda."
+            },
+            {
+                "id": 52,
+                "name": "Barra Proteína 1",
+                "cat": "proteica",
+                "cal": "Alta",
+                "icon": "fa-candy-cane",
+                "ing": "Aveia, pasta amendoim, whey, linhaça.",
+                "steps": "1. Misture e congele.\n2. Corte."
+            },
+            {
+                "id": 53,
+                "name": "Barra Proteína 2",
+                "cat": "proteica",
+                "cal": "Média",
+                "icon": "fa-candy-cane",
+                "ing": "Whey, claras, banana, batata doce, coco, cacau.",
+                "steps": "1. Misture tudo.\n2. Asse 10min.\n3. Corte."
+            },
+            {
+                "id": 54,
+                "name": "Pasta de Amendoim Caseira",
+                "cat": "proteica",
+                "cal": "Alta",
+                "icon": "fa-jar",
+                "ing": "Amendoim torrado sem pele.",
+                "steps": "1. Processe amendoim até virar pasta (tenha paciência)."
+            },
+            {
+                "id": 55,
+                "name": "Barra Cereal Tâmaras",
+                "cat": "doce",
+                "cal": "Média",
+                "icon": "fa-candy-cane",
+                "ing": "Amêndoas, tâmaras, ameixa, castanha, coco, chia, mel.",
+                "steps": "1. Processe tudo.\n2. Molde e gele."
+            },
+            {
+                "id": 56,
+                "name": "Barra Cereal Banana",
+                "cat": "doce",
+                "cal": "Média",
+                "icon": "fa-candy-cane",
+                "ing": "Aveia, claras, banana seca, banana fresca, mel.",
+                "steps": "1. Misture.\n2. Asse 15min a 180ºC.\n3. Corte."
+            },
+            {
+                "id": 57,
+                "name": "Maionese Fit",
+                "cat": "lowcarb",
+                "cal": "Média",
+                "icon": "fa-egg",
+                "ing": "3 ovos cozidos, limão, azeite, sal.",
+                "steps": "1. Bata ovos no liquidificador.\n2. Adicione azeite em fio até dar ponto."
+            },
+            {
+                "id": 58,
+                "name": "Nuggets Caseiro",
+                "cat": "proteica",
+                "cal": "Média",
+                "icon": "fa-drumstick-bite",
+                "ing": "500g frango moído, pão integral esfarelado, farinha milho (empanar).",
+                "steps": "1. Misture frango e pão.\n2. Molde.\n3. Empane no milho e asse."
+            },
+            {
+                "id": 59,
+                "name": "Frango Crocante Mostarda",
+                "cat": "proteica",
+                "cal": "Média",
+                "icon": "fa-drumstick-bite",
+                "ing": "Frango, aveia, ovos (empanar), mostarda, iogurte.",
+                "steps": "1. Empane frango na aveia.\n2. Asse.\n3. Sirva com molho mostarda/iogurte."
+            },
+            {
+                "id": 60,
+                "name": "Wrap de Frango",
+                "cat": "almoco",
+                "cal": "Média",
+                "icon": "fa-bread-slice",
+                "ing": "Frango cozido, maionese light, aipo, nozes, pão wrap.",
+                "steps": "1. Faça salada de frango.\n2. Enrole no pão."
+            },
+            {
+                "id": 61,
+                "name": "Frango Poá",
+                "cat": "lowcarb",
+                "cal": "Média",
+                "icon": "fa-drumstick-bite",
+                "ing": "Frango, pesto, pimentão, vinho branco, queijos.",
+                "steps": "1. Doure frango.\n2. Cozinhe com vinho e vegetais.\n3. Gratine com queijos."
+            },
+            {
+                "id": 62,
+                "name": "Frango Thai",
+                "cat": "almoco",
+                "cal": "Média",
+                "icon": "fa-drumstick-bite",
+                "ing": "Frango, macarrão integral, cogumelos, pasta amendoim.",
+                "steps": "1. Cozinhe macarrão.\n2. Refogue frango/cogumelos com molho de amendoim."
+            },
+            {
+                "id": 63,
+                "name": "Espetinho de Frango",
+                "cat": "proteica",
+                "cal": "Baixa",
+                "icon": "fa-drumstick-bite",
+                "ing": "Frango cubos, especiarias, iogurte (molho).",
+                "steps": "1. Tempere e espete.\n2. Grelhe.\n3. Sirva com molho."
+            },
+            {
+                "id": 64,
+                "name": "Frango à Rolê",
+                "cat": "proteica",
+                "cal": "Média",
+                "icon": "fa-drumstick-bite",
+                "ing": "Filés frango, mussarela, peito peru, manjericão.",
+                "steps": "1. Recheie filé e enrole.\n2. Grelhe/cozinhe fechado."
+            },
+            {
+                "id": 65,
+                "name": "Filé Frango Assado Cremoso",
+                "cat": "proteica",
+                "cal": "Média",
+                "icon": "fa-drumstick-bite",
+                "ing": "Filé frango, molho tomate, requeijão, queijo ralado.",
+                "steps": "1. Embrulhe no alumínio com molhos.\n2. Asse 20min."
+            },
+            {
+                "id": 66,
+                "name": "Bolinho Frango Batata Doce",
+                "cat": "proteica",
+                "cal": "Média",
+                "icon": "fa-cookie",
+                "ing": "100g frango, 50g batata doce.",
+                "steps": "1. Processe tudo.\n2. Molde bolinhas.\n3. Asse 20min."
+            },
+            {
+                "id": 67,
+                "name": "Torta Proteica Ovos",
+                "cat": "proteica",
+                "cal": "Baixa",
+                "icon": "fa-egg",
+                "ing": "6 ovos, 6 fatias peito peru.",
+                "steps": "1. Em forma cupcake, coloque peru e ovo dentro.\n2. Asse."
+            },
+            {
+                "id": 68,
+                "name": "Panqueca Ovo Aveia",
+                "cat": "proteica",
+                "cal": "Média",
+                "icon": "fa-stroopwafel",
+                "ing": "5 claras, 5cs aveia.",
+                "steps": "1. Bata e asse na frigideira."
+            },
+            {
+                "id": 69,
+                "name": "Omelete Proteico",
+                "cat": "proteica",
+                "cal": "Média",
+                "icon": "fa-egg",
+                "ing": "5 claras, 1 ovo, queijo branco.",
+                "steps": "1. Bata claras em neve.\n2. Misture resto.\n3. Frite."
+            },
+            {
+                "id": 70,
+                "name": "Bolo de Proteínas",
+                "cat": "doce",
+                "cal": "Média",
+                "icon": "fa-birthday-cake",
+                "ing": "6 claras, coco ralado, farinha aveia, limão.",
+                "steps": "1. Bata claras em neve.\n2. Misture secos.\n3. Asse 30min."
+            },
+            {
+                "id": 71,
+                "name": "Torta Proteica Frango (Massa Batata)",
+                "cat": "almoco",
+                "cal": "Média",
+                "icon": "fa-chart-pie",
+                "ing": "Batata doce, ovos, farinha berinjela, whey (massa). Frango/cottage (recheio).",
+                "steps": "1. Faça massa de batata.\n2. Recheie.\n3. Asse."
+            },
+            {
+                "id": 72,
+                "name": "Panqueca Salgada Whey",
+                "cat": "proteica",
+                "cal": "Baixa",
+                "icon": "fa-stroopwafel",
+                "ing": "1 scoop whey sem sabor, 1 ovo, aveia.",
+                "steps": "1. Bata e asse disco.\n2. Recheie a gosto."
+            },
+            {
+                "id": 73,
+                "name": "Coxinha Batata Doce",
+                "cat": "proteica",
+                "cal": "Média",
+                "icon": "fa-drumstick-bite",
+                "ing": "Batata doce, whey sem sabor (massa). Frango (recheio).",
+                "steps": "1. Massa de batata/whey.\n2. Recheie.\n3. Empane na aveia e asse."
+            },
+            {
+                "id": 74,
+                "name": "Pão Mandioca Whey",
+                "cat": "almoco",
+                "cal": "Média",
+                "icon": "fa-bread-slice",
+                "ing": "Mandioca, ovos, fermento, 2 xic whey.",
+                "steps": "1. Misture tudo sovando.\n2. Asse 30min."
+            },
+            {
+                "id": 75,
+                "name": "Brigadeiro Proteico Batata",
+                "cat": "doce",
+                "cal": "Baixa",
+                "icon": "fa-circle",
+                "ing": "Batata doce, whey chocolate, cacau.",
+                "steps": "1. Misture purê batata com whey.\n2. Enrole."
+            },
+            {
+                "id": 76,
+                "name": "Panqueca Whey Aveia (Doce)",
+                "cat": "doce",
+                "cal": "Média",
+                "icon": "fa-stroopwafel",
+                "ing": "Leite, claras, whey baunilha, aveia.",
+                "steps": "1. Bata e asse."
+            },
+            {
+                "id": 77,
+                "name": "Sorvete Banana Whey (Rápido)",
+                "cat": "doce",
+                "cal": "Baixa",
+                "icon": "fa-ice-cream",
+                "ing": "Banana congelada, whey, leite amêndoa.",
+                "steps": "1. Processe tudo."
+            }
+        ];
+
+        // --- LOGIC ---
+
+        // 1. Neuro-Trainer Logic (Rule Based)
+        function generateFullWorkout() {
+            const weight = document.getElementById('w-weight').value;
+            const split = document.getElementById('w-split').value;
+            const goal = document.getElementById('w-goal').value;
+            const gender = document.getElementById('w-gender').value;
+            
+            if(!weight) { alert("Por favor, insira seu peso."); return; }
+
+            // Water Calculation
+            const waterIntake = (weight * 0.05).toFixed(1); // ~50ml per kg for active people
+
+            let routineHTML = "";
+            let splitsData = getSplits(split, gender, goal);
+
+            splitsData.forEach(day => {
+                let rows = day.exercises.map(ex => `
+                    <tr>
+                        <td class="font-medium text-white">${ex.name}</td>
+                        <td>${ex.sets}</td>
+                        <td>${ex.reps}</td>
+                        <td class="text-xs text-gray-400">${ex.tech || "-"}</td>
+                    </tr>
+                `).join('');
+
+                routineHTML += `
+                    <div class="mb-8 break-inside-avoid">
+                        <h4 class="text-xl font-bold text-monster-400 mb-2 border-b border-white/10 pb-1">${day.title}</h4>
+                        <table class="workout-table">
+                            <thead><tr><th>Exercício</th><th>Séries</th><th>Reps</th><th>Técnica</th></tr></thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    </div>
+                `;
+            });
+
+            const finalHTML = `
+                <div class="space-y-6">
+                    <!-- Header Info -->
+                    <div class="bg-dark-900 p-4 rounded border border-white/10 flex justify-between items-center flex-wrap gap-4">
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase">Protocolo</p>
+                            <p class="text-lg font-bold text-white">${split} - ${goal.toUpperCase()}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase">Perfil</p>
+                            <p class="text-sm text-white">${gender} | ${weight}kg</p>
+                        </div>
+                        <div class="water-alert p-3 rounded w-full md:w-auto">
+                            <p class="text-xs text-cyan-400 font-bold"><i class="fas fa-tint mr-1"></i> HIDRATAÇÃO OBRIGATÓRIA</p>
+                            <p class="text-sm text-white">Beber no mínimo <strong>${waterIntake} Litros</strong> de água ao longo do dia.</p>
+                            <p class="text-[10px] text-gray-400 mt-1">Durante o treino: 500ml-1L.</p>
+                        </div>
+                    </div>
+
+                    <!-- Routine -->
+                    ${routineHTML}
+
+                    <div class="text-center text-xs text-gray-500 mt-8 pt-4 border-t border-white/5">
+                        <p>Green Monster Project © - Gerado em ${new Date().toLocaleDateString()}</p>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('workout-output').innerHTML = finalHTML;
+        }
+
+        function getSplits(split, gender, goal) {
+            // Logic Engine based on PDF principles
+            const isMass = goal === 'hipertrofia' || goal === 'forca';
+            const reps = isMass ? "8-12" : "12-15";
+            const sets = isMass ? "3-4" : "3";
+            
+            // Sample structure builder
+            let days = [];
+
+            if (split === 'AB') {
+                days.push({ title: "A: Superiores", exercises: buildDay(['peito', 'costas', 'ombros', 'biceps', 'triceps'], sets, reps) });
+                days.push({ title: "B: Inferiores", exercises: buildDay(['pernas', 'gluteos', 'abs'], sets, reps) });
+            } else if (split === 'ABC') {
+                days.push({ title: "A: Empurrar (Peito/Ombro/Tríceps)", exercises: buildDay(['peito', 'ombros', 'triceps'], sets, reps) });
+                days.push({ title: "B: Puxar (Costas/Bíceps)", exercises: buildDay(['costas', 'biceps', 'abs'], sets, reps) });
+                days.push({ title: "C: Pernas Completo", exercises: buildDay(['pernas', 'gluteos'], sets, reps) });
+            } else if (split === 'ABCD') {
+                days.push({ title: "A: Peito e Tríceps", exercises: buildDay(['peito', 'triceps'], sets, reps) });
+                days.push({ title: "B: Costas e Bíceps", exercises: buildDay(['costas', 'biceps'], sets, reps) });
+                days.push({ title: "C: Pernas", exercises: buildDay(['pernas', 'gluteos'], sets, reps) });
+                days.push({ title: "D: Ombros e Abs", exercises: buildDay(['ombros', 'abs'], sets, reps) });
+            } else if (split === 'ABCDE') {
+                days.push({ title: "A: Peito", exercises: buildDay(['peito'], "4", reps) });
+                days.push({ title: "B: Costas", exercises: buildDay(['costas'], "4", reps) });
+                days.push({ title: "C: Pernas", exercises: buildDay(['pernas', 'gluteos'], "4", reps) });
+                days.push({ title: "D: Ombros", exercises: buildDay(['ombros'], "4", reps) });
+                days.push({ title: "E: Braços (Bíceps/Tríceps)", exercises: buildDay(['biceps', 'triceps'], "4", reps) });
+            }
+            
+            return days;
+        }
+
+        function buildDay(muscleGroups, sets, reps) {
+            let exs = [];
+            const exerciseDB = {
+                peito: ["Supino Reto (Barra/Halter)", "Supino Inclinado", "Crucifixo (Máquina/Halter)", "Crossover", "Flexão de Braços"],
+                costas: ["Puxada Frente", "Remada Curvada", "Remada Baixa", "Serrote", "Levantamento Terra", "Pulldown"],
+                pernas: ["Agachamento Livre", "Leg Press 45", "Cadeira Extensora", "Mesa Flexora", "Stiff", "Afundo", "Panturrilha em Pé"],
+                ombros: ["Desenvolvimento", "Elevação Lateral", "Elevação Frontal", "Crucifixo Inverso", "Remada Alta"],
+                biceps: ["Rosca Direta", "Rosca Scott", "Rosca Martelo", "Rosca Concentrada"],
+                triceps: ["Tríceps Corda", "Tríceps Testa", "Tríceps Francês", "Mergulho/Paralelas"],
+                gluteos: ["Elevação Pélvica", "Agachamento Sumô", "Coice na Polia", "Cadeira Abdutora"],
+                abs: ["Abdominal Supra", "Prancha Ventral", "Abdominal Infra", "Russian Twist"]
+            };
+
+            muscleGroups.forEach(group => {
+                // Pick 2-3 exercises per group
+                let picks = exerciseDB[group].slice(0, group === 'abs' ? 2 : 3);
+                picks.forEach(p => {
+                    exs.push({ name: p, sets: sets, reps: reps, tech: "Falha" });
+                });
+            });
+            return exs;
+        }
+
+        // --- EXPORT FUNCTIONS ---
+        function exportPDF() {
+            window.print();
+        }
+
+        function exportExcel() {
+            // Simple CSV generation from the table data currently displayed
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Dia,Exercicio,Series,Repeticoes,Tecnica\n";
+
+            const tables = document.querySelectorAll('#workout-output table');
+            const titles = document.querySelectorAll('#workout-output h4');
+
+            if(tables.length === 0) { alert("Gere um treino primeiro!"); return; }
+
+            tables.forEach((table, index) => {
+                let dayTitle = titles[index].innerText;
+                let rows = table.querySelectorAll('tr');
+                
+                // Skip header row (index 0)
+                for (let i = 1; i < rows.length; i++) {
+                    let cols = rows[i].querySelectorAll('td');
+                    let rowData = [dayTitle];
+                    cols.forEach(col => rowData.push(col.innerText));
+                    csvContent += rowData.join(",") + "\n";
+                }
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "green_monster_protocol.csv");
+            document.body.appendChild(link);
+            link.click();
+        }
+
+        // --- RECIPE SYSTEM ---
+        
+        function renderRecipes(filter) {
+            const grid = document.getElementById('recipe-grid');
+            grid.innerHTML = '';
+            
+            const filtered = filter === 'all' ? recipesDB : recipesDB.filter(r => r.cat === filter);
+
+            filtered.forEach(r => {
+                const card = document.createElement('div');
+                card.className = 'monster-card p-4 rounded-xl cursor-pointer group';
+                card.onclick = () => openRecipeModal(r.id);
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="w-10 h-10 rounded-full bg-monster-500/10 flex items-center justify-center text-monster-400">
+                            <i class="fas ${r.icon}"></i>
+                        </div>
+                        <span class="text-[10px] font-mono text-gray-500 uppercase">${r.cat}</span>
+                    </div>
+                    <h4 class="font-bold text-white group-hover:text-monster-400 transition-colors">${r.name}</h4>
+                    <p class="text-xs text-gray-500 mt-1">${r.cal}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterRecipes(cat, btnElement) {
+            // Visual update for buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.remove('text-white');
+                btn.classList.remove('border-monster-500');
+                btn.classList.add('text-gray-400');
+                btn.classList.add('border-white/20');
+            });
+            if(btnElement) {
+                btnElement.classList.add('active');
+                btnElement.classList.remove('text-gray-400');
+                btnElement.classList.remove('border-white/20');
+                btnElement.classList.add('text-white');
+                btnElement.classList.add('border-monster-500');
+            }
+            renderRecipes(cat);
+        }
+
+        // Modal Logic
+        function openRecipeModal(id) {
+            const r = recipesDB.find(x => x.id === id);
+            if (!r) return;
+            
+            document.getElementById('modal-title').innerText = r.name;
+            
+            // Split ingredients by comma if it's a simple string, or handle lists
+            let ingredientsList = r.ing.split(',').map(i => `<li>${i.trim()}</li>`).join('');
+            document.getElementById('modal-ingredients').innerHTML = ingredientsList;
+            
+            document.getElementById('modal-steps').innerText = r.steps;
+            document.getElementById('modal-macros').innerText = `${r.cal} | Categoria: ${r.cat.toUpperCase()}`;
+            document.getElementById('recipe-modal').classList.remove('hidden');
+        }
+
+        // --- BIOMETRICS ---
+        function calculateBioMetrics() {
+            const weight = parseFloat(document.getElementById('c-weight').value);
+            const height = parseFloat(document.getElementById('c-height').value);
+            const age = parseFloat(document.getElementById('c-age').value);
+            const gender = document.querySelector('input[name="c-gender"]:checked').value;
+            const activity = parseFloat(document.getElementById('c-activity').value);
+
+            if(!weight || !height) return;
+
+            // IMC
+            const heightM = height / 100;
+            const imc = (weight / (heightM * heightM)).toFixed(1);
+            let imcStatus = "";
+            let barWidth = "0%";
+            let color = "text-white";
+
+            if(imc < 18.5) { imcStatus = "Abaixo do Peso"; barWidth = "20%"; color = "text-yellow-400"; }
+            else if(imc < 24.9) { imcStatus = "Normal"; barWidth = "50%"; color = "text-monster-400"; }
+            else if(imc < 29.9) { imcStatus = "Sobrepeso"; barWidth = "75%"; color = "text-yellow-400"; }
+            else { imcStatus = "Obesidade"; barWidth = "100%"; color = "text-red-500"; }
+
+            document.getElementById('res-imc').innerText = imc;
+            document.getElementById('res-imc-status').innerText = imcStatus;
+            document.getElementById('res-imc-status').className = "text-sm font-bold " + color;
+            document.getElementById('imc-bar').style.width = barWidth;
+
+            // TMB & TDEE
+            if(age) {
+                let bmr = (10 * weight) + (6.25 * height) - (5 * age);
+                bmr += (gender === 'm' ? 5 : -161);
+                const tdee = Math.round(bmr * activity);
+
+                document.getElementById('res-tmb').innerText = Math.round(bmr) + " kcal";
+                document.getElementById('res-tdee').innerText = tdee + " kcal";
+                document.getElementById('res-cut').innerText = Math.round(tdee * 0.8) + " kcal";
+                document.getElementById('res-bulk').innerText = Math.round(tdee * 1.15) + " kcal";
+            }
+
+            document.getElementById('calc-results').classList.remove('hidden');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderRecipes('all');
+        });
+
+    </script>
+</body>
+</html>
