@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 <!-- 
-    Project: GREEN MONSTER PROJECT v5.3 (About & Credits)
+    Project: GREEN MONSTER PROJECT v5.4 (Hero Update)
     Theme: Toxic Green & Deep Void
     Dev: Erick de Lima Souza
 -->
@@ -35,11 +35,25 @@
                             900: '#050505',
                             800: '#0a0a0a',
                             700: '#121212'
+                        },
+                        cyan: {
+                            400: '#22d3ee',
+                            500: '#06b6d4'
+                        },
+                        red: {
+                            500: '#ef4444'
                         }
                     },
                     animation: {
                         'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
                     },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
                 }
             }
         }
@@ -91,6 +105,13 @@
             border-color: #4ade80;
             color: white;
         }
+        
+        /* Typography & Effects */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-start infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
 
         /* Print Styles */
         @media print {
@@ -111,11 +132,11 @@
     <nav class="fixed top-0 w-full z-50 monster-card border-b border-green-900/30 no-print">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center h-16">
-                <div class="flex items-center gap-2 cursor-pointer" onclick="showSection('home')">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="showSection('hero')">
                     <i class="fas fa-biohazard text-3xl text-monster-500"></i>
                     <div class="flex flex-col">
                         <span class="text-xl font-display font-bold text-white tracking-wider">GREEN <span class="text-monster-500">MONSTER</span></span>
-                        <span class="text-[10px] text-gray-500 tracking-[0.2em]">PROJECT v5.3</span>
+                        <span class="text-[10px] text-gray-500 tracking-[0.2em]">PROJECT v5.4</span>
                     </div>
                 </div>
                 <div class="hidden md:flex space-x-1">
@@ -142,24 +163,29 @@
     <!-- MAIN CONTAINER -->
     <main class="pt-24 min-h-screen pb-12">
 
-        <!-- HOME -->
-        <div id="home" class="section-view max-w-7xl mx-auto px-4 flex flex-col items-center justify-center min-h-[70vh] text-center">
-            <div class="inline-block px-4 py-1 rounded-full border border-monster-500/30 bg-monster-500/10 text-monster-400 text-xs font-mono tracking-widest mb-6 animate-pulse-fast">
-                BIOHACKING SYSTEM ONLINE
+        <!-- HERO SECTION (Updated) -->
+        <section id="hero" class="section-view relative min-h-[85vh] flex items-center justify-center">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center z-10">
+                <div class="inline-flex items-center px-3 py-1 rounded-full glass border border-white/10 text-xs font-medium mb-6 animate-float">
+                    <span class="w-2 h-2 rounded-full bg-green-400 mr-2 animate-pulse"></span>
+                    <span class="text-gray-300">Dual Core System Online</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight">
+                    Seu Objetivo.<br>
+                    <span id="typing-text" class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-red-500 typing-cursor"></span>
+                </h1>
+
+                <p class="max-w-2xl text-gray-400 text-lg mb-10 leading-relaxed">
+                    Domine estratégias de <strong>Queima de Gordura</strong>, <strong>Hipertrofia</strong> e <strong>Alta Performance</strong> com treinos de elite, ou personalize sua rotina híbrida usando nossa IA.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                    <button onclick="showSection('neuro-trainer')" class="px-8 py-4 bg-monster-600 hover:bg-monster-500 text-white font-bold rounded shadow-[0_0_20px_rgba(34,197,94,0.4)] flex items-center justify-center gap-2 transition-all hover:scale-105">
+                        <i class="fas fa-bolt"></i> INICIAR SISTEMA
+                    </button>
+                </div>
             </div>
-            <h1 class="text-6xl md:text-8xl font-display font-bold text-white mb-6 leading-none">
-                EVOLVE <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-monster-600 via-monster-400 to-white">YOURSELF</span>
-            </h1>
-            <p class="max-w-2xl text-gray-400 text-lg mb-10 font-light">
-                A maior plataforma de criação de treinos e disseminação de receitas para dieta do Brasil. Tecnologia livre, resultados reais.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                <button onclick="showSection('neuro-trainer')" class="px-8 py-4 bg-monster-600 hover:bg-monster-500 text-white font-bold rounded shadow-[0_0_20px_rgba(34,197,94,0.4)] flex items-center justify-center gap-2">
-                    ACESSAR FERRAMENTAS <i class="fas fa-arrow-right"></i>
-                </button>
-            </div>
-        </div>
+        </section>
 
         <!-- NEURO-TRAINER -->
         <div id="neuro-trainer" class="section-view hidden-section max-w-7xl mx-auto px-4">
@@ -576,7 +602,8 @@
             
             if(!weight) { alert("Por favor, insira seu peso."); return; }
 
-            const waterIntake = (weight * 0.05).toFixed(1); 
+            // Water Calculation
+            const waterIntake = (weight * 0.05).toFixed(1); // ~50ml per kg for active people
 
             let routineHTML = "";
             let splitsData = getSplits(split, gender, goal);
@@ -604,6 +631,7 @@
 
             const finalHTML = `
                 <div class="space-y-6">
+                    <!-- Header Info -->
                     <div class="bg-dark-900 p-4 rounded border border-white/10 flex justify-between items-center flex-wrap gap-4">
                         <div>
                             <p class="text-xs text-gray-500 uppercase">Protocolo</p>
@@ -619,7 +647,10 @@
                             <p class="text-[10px] text-gray-400 mt-1">Durante o treino: 500ml-1L.</p>
                         </div>
                     </div>
+
+                    <!-- Routine -->
                     ${routineHTML}
+
                     <div class="text-center text-xs text-gray-500 mt-8 pt-4 border-t border-white/5">
                         <p>Green Monster Project © - Gerado em ${new Date().toLocaleDateString()}</p>
                     </div>
@@ -630,10 +661,12 @@
         }
 
         function getSplits(split, gender, goal) {
+            // Logic Engine based on PDF principles
             const isMass = goal === 'hipertrofia' || goal === 'forca';
             const reps = isMass ? "8-12" : "12-15";
             const sets = isMass ? "3-4" : "3";
             
+            // Sample structure builder
             let days = [];
 
             if (split === 'AB') {
@@ -662,6 +695,7 @@
         function buildDay(muscleGroups, sets, reps) {
             let exs = [];
             muscleGroups.forEach(group => {
+                // Pick 2-3 exercises per group
                 let picks = exerciseDB[group].slice(0, group === 'abs' ? 2 : 3);
                 picks.forEach(p => {
                     exs.push({ name: p, sets: sets, reps: reps, tech: "Falha" });
@@ -670,11 +704,13 @@
             return exs;
         }
 
+        // --- EXPORT FUNCTIONS ---
         function exportPDF() {
             window.print();
         }
 
         function exportExcel() {
+            // Simple CSV generation from the table data currently displayed
             let csvContent = "data:text/csv;charset=utf-8,";
             csvContent += "Dia,Exercicio,Series,Repeticoes,Tecnica\n";
 
@@ -687,6 +723,7 @@
                 let dayTitle = titles[index].innerText;
                 let rows = table.querySelectorAll('tr');
                 
+                // Skip header row (index 0)
                 for (let i = 1; i < rows.length; i++) {
                     let cols = rows[i].querySelectorAll('td');
                     let rowData = [dayTitle];
@@ -730,6 +767,7 @@
         }
 
         function filterRecipes(cat, btnElement) {
+            // Visual update for buttons
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
                 btn.classList.remove('text-white');
@@ -747,12 +785,14 @@
             renderRecipes(cat);
         }
 
+        // Modal Logic
         function openRecipeModal(id) {
             const r = recipesDB.find(x => x.id === id);
             if (!r) return;
             
             document.getElementById('modal-title').innerText = r.name;
             
+            // Split ingredients by comma if it's a simple string, or handle lists
             let ingredientsList = r.ing.split(',').map(i => `<li>${i.trim()}</li>`).join('');
             document.getElementById('modal-ingredients').innerHTML = ingredientsList;
             
@@ -771,6 +811,7 @@
 
             if(!weight || !height) return;
 
+            // IMC
             const heightM = height / 100;
             const imc = (weight / (heightM * heightM)).toFixed(1);
             let imcStatus = "";
@@ -787,6 +828,7 @@
             document.getElementById('res-imc-status').className = "text-sm font-bold " + color;
             document.getElementById('imc-bar').style.width = barWidth;
 
+            // TMB & TDEE
             if(age) {
                 let bmr = (10 * weight) + (6.25 * height) - (5 * age);
                 bmr += (gender === 'm' ? 5 : -161);
@@ -801,8 +843,24 @@
             document.getElementById('calc-results').classList.remove('hidden');
         }
 
+        // Text Typing Effect
+        const textToType = ["Definição Extrema.", "Massa Bruta.", "Alta Performance.", "Saúde Integral.", "Emagrecimento Real.", "Queima de Gordura.", "Condicionamento Físico.", "Foco e Disciplina.", "Hipertrofia Pura.", "Energia Máxima."];
+        let tIndex = 0, cIndex = 0, isDel = false;
+        const typeEl = document.getElementById('typing-text');
+        
+        function type() {
+            if (!typeEl) return;
+            const txt = textToType[tIndex];
+            typeEl.textContent = txt.substring(0, isDel ? cIndex-- : cIndex++);
+            if(!isDel && cIndex === txt.length + 1) { isDel = true; setTimeout(type, 2000); }
+            else if(isDel && cIndex === 0) { isDel = false; tIndex = (tIndex + 1) % textToType.length; setTimeout(type, 500); }
+            else setTimeout(type, isDel ? 50 : 100);
+        }
+
+        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             renderRecipes('all');
+            type();
         });
 
     </script>
