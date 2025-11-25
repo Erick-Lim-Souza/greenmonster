@@ -72,7 +72,7 @@ Este projeto é estático e não requer instalação de dependências de backend
 
 Clone o repositório:
 
-git clone [https://github.com/Erick-Lim-Souza/green-monster-project.git](https://github.com/Erick-Lim-Souza/green-monster-project.git)
+git clone [https://github.com/Erick-Lim-Souza/greenmonster](https://github.com/Erick-Lim-Souza/greenmonster)
 
 
 Acesse a pasta:
