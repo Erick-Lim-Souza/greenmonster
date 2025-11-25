@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 <!-- 
-    Project: GREEN MONSTER PROJECT v5.2 (Fix)
+    Project: GREEN MONSTER PROJECT v5.3 (About & Credits)
     Theme: Toxic Green & Deep Void
-    Fixes: Global Scope binding for navigation functions
+    Dev: Erick de Lima Souza
 -->
 <head>
     <meta charset="UTF-8">
@@ -85,7 +85,7 @@
             border-left: 4px solid #06b6d4;
         }
 
-        /* Recipe Filter Active State */
+        /* Filter Btn */
         .filter-btn.active {
             background-color: rgba(34, 197, 94, 0.2);
             border-color: #4ade80;
@@ -115,15 +115,27 @@
                     <i class="fas fa-biohazard text-3xl text-monster-500"></i>
                     <div class="flex flex-col">
                         <span class="text-xl font-display font-bold text-white tracking-wider">GREEN <span class="text-monster-500">MONSTER</span></span>
-                        <span class="text-[10px] text-gray-500 tracking-[0.2em]">PROJECT v5.2</span>
+                        <span class="text-[10px] text-gray-500 tracking-[0.2em]">PROJECT v5.3</span>
                     </div>
                 </div>
                 <div class="hidden md:flex space-x-1">
-                    <button onclick="showSection('neuro-trainer')" class="nav-btn px-4 py-2 text-sm font-bold text-gray-300 hover:text-monster-400 transition-all hover:bg-white/5 rounded"><i class="fas fa-dumbbell mr-2"></i>TREINO & DOWNLOAD</button>
-                    <button onclick="showSection('kitchen')" class="nav-btn px-4 py-2 text-sm font-bold text-gray-300 hover:text-monster-400 transition-all hover:bg-white/5 rounded"><i class="fas fa-utensils mr-2"></i>77 RECEITAS</button>
-                    <button onclick="showSection('calculator')" class="nav-btn px-4 py-2 text-sm font-bold text-gray-300 hover:text-monster-400 transition-all hover:bg-white/5 rounded"><i class="fas fa-calculator mr-2"></i>BIO-METRICA</button>
+                    <button onclick="showSection('neuro-trainer')" class="nav-btn px-3 py-2 text-xs font-bold text-gray-300 hover:text-monster-400 transition-all hover:bg-white/5 rounded"><i class="fas fa-dumbbell mr-1"></i> TREINO</button>
+                    <button onclick="showSection('kitchen')" class="nav-btn px-3 py-2 text-xs font-bold text-gray-300 hover:text-monster-400 transition-all hover:bg-white/5 rounded"><i class="fas fa-utensils mr-1"></i> RECEITAS</button>
+                    <button onclick="showSection('calculator')" class="nav-btn px-3 py-2 text-xs font-bold text-gray-300 hover:text-monster-400 transition-all hover:bg-white/5 rounded"><i class="fas fa-calculator mr-1"></i> METABOLISMO</button>
+                    <button onclick="showSection('about')" class="nav-btn px-3 py-2 text-xs font-bold text-gray-300 hover:text-monster-400 transition-all hover:bg-white/5 rounded"><i class="fas fa-info-circle mr-1"></i> SOBRE</button>
                 </div>
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-monster-500 text-xl" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-800 border-t border-white/5 p-4 space-y-2 no-print">
+            <button onclick="showSection('neuro-trainer'); document.getElementById('mobile-menu').classList.add('hidden')" class="block w-full text-left text-gray-300 py-2">Treino</button>
+            <button onclick="showSection('kitchen'); document.getElementById('mobile-menu').classList.add('hidden')" class="block w-full text-left text-gray-300 py-2">Receitas</button>
+            <button onclick="showSection('calculator'); document.getElementById('mobile-menu').classList.add('hidden')" class="block w-full text-left text-gray-300 py-2">Calculadora</button>
+            <button onclick="showSection('about'); document.getElementById('mobile-menu').classList.add('hidden')" class="block w-full text-left text-gray-300 py-2">Sobre</button>
         </div>
     </nav>
 
@@ -133,18 +145,18 @@
         <!-- HOME -->
         <div id="home" class="section-view max-w-7xl mx-auto px-4 flex flex-col items-center justify-center min-h-[70vh] text-center">
             <div class="inline-block px-4 py-1 rounded-full border border-monster-500/30 bg-monster-500/10 text-monster-400 text-xs font-mono tracking-widest mb-6 animate-pulse-fast">
-                PROTOCOLOS CARREGADOS // AB-ABC-ABCD-ABCDE
+                BIOHACKING SYSTEM ONLINE
             </div>
             <h1 class="text-6xl md:text-8xl font-display font-bold text-white mb-6 leading-none">
-                BUILD YOUR <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-monster-600 via-monster-400 to-white">LEGACY</span>
+                EVOLVE <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-monster-600 via-monster-400 to-white">YOURSELF</span>
             </h1>
             <p class="max-w-2xl text-gray-400 text-lg mb-10 font-light">
-                Plataforma integrada de Biohacking: Gere treinos completos, exporte para PDF/Excel, controle seu IMC e acesse o livro de receitas anabólicas.
+                A maior plataforma de criação de treinos e disseminação de receitas para dieta do Brasil. Tecnologia livre, resultados reais.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <button onclick="showSection('neuro-trainer')" class="px-8 py-4 bg-monster-600 hover:bg-monster-500 text-white font-bold rounded shadow-[0_0_20px_rgba(34,197,94,0.4)] flex items-center justify-center gap-2">
-                    INICIAR NEURO-TRAINER <i class="fas fa-arrow-right"></i>
+                    ACESSAR FERRAMENTAS <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
         </div>
@@ -154,7 +166,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 <!-- Form -->
                 <div class="lg:col-span-4 monster-card p-6 rounded-xl h-fit no-print">
-                    <h3 class="text-xl font-bold text-white mb-4 border-l-4 border-monster-500 pl-3">Configuração Biológica</h3>
+                    <h3 class="text-xl font-bold text-white mb-4 border-l-4 border-monster-500 pl-3">Neuro-Trainer AI</h3>
                     <form id="workout-form" class="space-y-4" onsubmit="event.preventDefault(); generateFullWorkout();">
                         <div class="grid grid-cols-2 gap-3">
                             <div>
@@ -349,6 +361,74 @@
             </div>
         </div>
 
+        <!-- ABOUT & CREDITS -->
+        <div id="about" class="section-view hidden-section max-w-5xl mx-auto px-4 py-12">
+            <div class="space-y-16">
+                
+                <!-- Intro -->
+                <div class="text-center">
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-4">SOBRE O <span class="text-monster-500">PROJETO</span></h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">
+                        Esta é a maior plataforma de criação de treino e disseminação de receitas para dieta do Brasil, projetada para crescer cada vez mais.
+                    </p>
+                </div>
+
+                <!-- Usability Guide -->
+                <div class="monster-card p-8 rounded-xl">
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center"><i class="fas fa-book mr-3 text-monster-400"></i> COMO USAR A APLICAÇÃO</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="space-y-2">
+                            <div class="text-monster-500 font-bold text-lg">01. Neuro-Trainer</div>
+                            <p class="text-sm text-gray-400">
+                                Preencha seus dados (peso, altura, objetivo). O sistema gera um treino completo baseado na divisão escolhida (AB a ABCDE). Use os botões de exportação para salvar em PDF ou Excel.
+                            </p>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="text-monster-500 font-bold text-lg">02. Cyber Kitchen</div>
+                            <p class="text-sm text-gray-400">
+                                Navegue pelo banco de dados de 77 receitas. Use os filtros (Low Carb, Proteica, etc.) para encontrar o prato ideal. Clique no card para ver o preparo detalhado.
+                            </p>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="text-monster-500 font-bold text-lg">03. Bio-Metrica</div>
+                            <p class="text-sm text-gray-400">
+                                Calcule seu IMC, Taxa Metabólica Basal e Gasto Calórico Total. O sistema sugere automaticamente as calorias para Cutting ou Bulking.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Creator & Credits -->
+                <div class="bg-dark-900 border border-white/10 p-8 rounded-xl text-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-monster-500 to-transparent opacity-50"></div>
+                    
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold text-white mb-4">PROJETADO PELO GRUPO GREEN MONSTER PROJECT</h3>
+                        
+                        <div class="text-gray-400 text-sm space-y-4 max-w-3xl mx-auto leading-relaxed">
+                            <p>
+                                O grupo <strong class="text-white">Green Monster Project</strong> é uma iniciativa privada do Dev Full-Stack <strong class="text-monster-400">Erick de Lima Souza</strong>, que acredita que a tecnologia deve ser livre, e seguindo essa ideia está sempre criando e disponibilizando tecnologia na rede.
+                            </p>
+                            <p>
+                                O Green Monster Project é Open Source e mantido por iniciativas próprias. Nosso objetivo é democratizar o acesso a ferramentas de saúde e performance.
+                            </p>
+                            <p>
+                                Você pode conhecer outros projetos da <a href="https://ericklima-dev.netlify.app/" target="_blank" class="text-monster-400 hover:text-white underline decoration-monster-500 underline-offset-4 transition-all">By. Green Monster Project</a>.
+                            </p>
+                        </div>
+
+                        <div class="mt-8 pt-8 border-t border-white/5">
+                            <p class="text-xs text-gray-500 font-mono">
+                                Desenvolvido por Erick de Lima Souza <span class="mx-2">|</span> By. Green Monster Project © 2025
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </main>
 
     <!-- Footer -->
@@ -381,8 +461,7 @@
     </div>
 
     <script>
-        // --- GLOBAL FUNCTIONS EXPORT (Fix for ReferenceError) ---
-        
+        // --- GLOBAL FUNCTIONS EXPORT ---
         function showSection(id) {
             document.querySelectorAll('.section-view').forEach(el => el.classList.add('hidden-section'));
             document.getElementById(id).classList.remove('hidden-section');
@@ -396,707 +475,99 @@
         window.closeModal = closeModal;
 
         // --- DATABASE ---
-        
-        // 1. Recipes Database (Complete)
         const recipesDB = [
-            {
-                "id": 1,
-                "name": "Frittata de Abobrinha",
-                "cat": "lowcarb",
-                "cal": "Baixa Caloria",
-                "icon": "fa-leaf",
-                "ing": "2 abobrinhas, 2 ovos, 1 dente de alho, cebolinha, salsinha, 1/2 xic farinha de aveia, fermento, tomate.",
-                "steps": "1. Rale a abobrinha e retire a água.\n2. Misture com os ovos e ingredientes.\n3. Despeje em frigideira untada e doure 3min de cada lado."
-            },
-            {
-                "id": 2,
-                "name": "Risoto Fit de Frango",
-                "cat": "almoco",
-                "cal": "Moderada",
-                "icon": "fa-utensils",
-                "ing": "150g frango cubos, 3cs arroz integral cozido, abobrinha, brócolis, cebola, 1cs cream cheese light.",
-                "steps": "1. Refogue frango e legumes.\n2. Adicione o arroz cozido.\n3. Finalize com cream cheese e castanhas."
-            },
-            {
-                "id": 3,
-                "name": "Hambúrguer de Quinoa",
-                "cat": "lowcarb",
-                "cal": "Baixa Caloria",
-                "icon": "fa-hamburger",
-                "ing": "100g quinoa em grãos, 2cs farinha de mandioca, cebolinha, manjericão, azeite.",
-                "steps": "1. Cozinhe a quinoa.\n2. Misture com ervas e farinha.\n3. Molde e doure na frigideira."
-            },
-            {
-                "id": 4,
-                "name": "Sorvete de Banana Proteico",
-                "cat": "doce",
-                "cal": "120 kcal",
-                "icon": "fa-ice-cream",
-                "ing": "2 bananas congeladas, 1 scoop whey protein.",
-                "steps": "1. Bata as bananas congeladas no processador até virar creme.\n2. Adicione o whey e bata mais um pouco."
-            },
-            {
-                "id": 5,
-                "name": "Cookies de Castanha",
-                "cat": "doce",
-                "cal": "Moderada",
-                "icon": "fa-cookie",
-                "ing": "1 xic castanha caju, 1.5 xic farinha coco, 3cs adoçante, leite de coco, gotas de chocolate amargo.",
-                "steps": "1. Triture castanhas.\n2. Misture tudo.\n3. Molde cookies e asse 15min forno médio."
-            },
-            {
-                "id": 6,
-                "name": "Sorvete Banana com Morango",
-                "cat": "doce",
-                "cal": "75 kcal",
-                "icon": "fa-ice-cream",
-                "ing": "2 bananas, 1 xic morangos.",
-                "steps": "1. Congele as frutas picadas.\n2. Bata no processador até virar creme.\n3. Sirva imediatamente."
-            },
-            {
-                "id": 7,
-                "name": "Pudim de Chia",
-                "cat": "doce",
-                "cal": "116 kcal",
-                "icon": "fa-spoon",
-                "ing": "1cs chia, 1/2 xic leite de coco, morangos, stevia.",
-                "steps": "1. Hidrate a chia no leite de coco com stevia na geladeira (1 noite).\n2. Cubra com morangos."
-            },
-            {
-                "id": 8,
-                "name": "Beijinho Fit",
-                "cat": "doce",
-                "cal": "318 kcal (total)",
-                "icon": "fa-circle",
-                "ing": "8cs leite em pó desnatado, 1cc óleo coco, adoçante, água quente, coco ralado.",
-                "steps": "1. Bata ingredientes até dar ponto.\n2. Enrole e passe no coco ralado.\n3. Leve ao forno rápido para dourar."
-            },
-            {
-                "id": 9,
-                "name": "Brigadeiro de Colher Biomassa",
-                "cat": "doce",
-                "cal": "178 kcal",
-                "icon": "fa-spoon",
-                "ing": "1 xic biomassa banana verde, adoçante, óleo coco, chocolate 70%, leite coco.",
-                "steps": "1. Mexa biomassa, adoçante e óleo na panela.\n2. Adicione chocolate e leite de coco até dar ponto."
-            },
-            {
-                "id": 10,
-                "name": "Trufa de Aveia",
-                "cat": "doce",
-                "cal": "149 kcal",
-                "icon": "fa-cookie-bite",
-                "ing": "1cs farelo aveia, açúcar mascavo, cacau em pó, pasta amendoim.",
-                "steps": "1. Misture tudo até homogêneo.\n2. Faça bolinhas e passe no cacau."
-            },
-            {
-                "id": 11,
-                "name": "Crepioca de Chocolate",
-                "cat": "doce",
-                "cal": "164 kcal",
-                "icon": "fa-stroopwafel",
-                "ing": "1 ovo, 1 clara, 1cs tapioca, adoçante, 1cs cacau.",
-                "steps": "1. Misture e faça na frigideira como panqueca.\n2. Enrole como charuto. Pode por whey."
-            },
-            {
-                "id": 12,
-                "name": "Shake Hipercalórico",
-                "cat": "almoco",
-                "cal": "648 kcal",
-                "icon": "fa-blender",
-                "ing": "2 scoops whey, 2 copos leite integral, 1 banana, 1/2 xic aveia.",
-                "steps": "1. Bata tudo no liquidificador com gelo."
-            },
-            {
-                "id": 13,
-                "name": "Sanduíche Frango e Abacate",
-                "cat": "almoco",
-                "cal": "716 kcal",
-                "icon": "fa-bread-slice",
-                "ing": "2 fatias pão, frango grelhado, 1 abacate maduro, limão, temperos.",
-                "steps": "1. Faça pasta com abacate e limão.\n2. Monte sanduíche com frango e pasta."
-            },
-            {
-                "id": 14,
-                "name": "X-Salada Bacon Egg",
-                "cat": "almoco",
-                "cal": "850 kcal",
-                "icon": "fa-hamburger",
-                "ing": "220g patinho moído, 1 ovo, 3 fatias mussarela, bacon, pão, salada.",
-                "steps": "1. Grelhe hambúrguer e bacon.\n2. Frite o ovo.\n3. Monte o lanche completo."
-            },
-            {
-                "id": 15,
-                "name": "Mingau Proteico",
-                "cat": "proteica",
-                "cal": "440 kcal",
-                "icon": "fa-mug-hot",
-                "ing": "12 claras, 1 gema, 1/2 xic aveia, canela.",
-                "steps": "1. Bata no liquidificador.\n2. Cozinhe em fogo alto mexendo até engrossar."
-            },
-            {
-                "id": 16,
-                "name": "Barra Proteína Caseira",
-                "cat": "proteica",
-                "cal": "Alto",
-                "icon": "fa-candy-cane",
-                "ing": "2 xic aveia, 1/2 xic pasta amendoim, 4 scoops whey, linhaça, água.",
-                "steps": "1. Misture tudo.\n2. Espalhe em forma e congele por 30min.\n3. Corte em barras."
-            },
-            {
-                "id": 17,
-                "name": "Salgado Maromba",
-                "cat": "proteica",
-                "cal": "456 kcal",
-                "icon": "fa-cookie",
-                "ing": "100g ricota, 50g couve-flor, farinha linhaça, clara, frango p/ recheio.",
-                "steps": "1. Processe massa (ricota, couve, farinha).\n2. Recheie com frango.\n3. Asse 20min a 250ºC."
-            },
-            {
-                "id": 18,
-                "name": "Hambúrguer Grão de Bico",
-                "cat": "lowcarb",
-                "cal": "567 kcal",
-                "icon": "fa-leaf",
-                "ing": "1.5 xic grão bico cozido, alho, cebola, farinha integral ou aveia.",
-                "steps": "1. Processe grão de bico com temperos.\n2. Dê liga com farinha.\n3. Grelhe."
-            },
-            {
-                "id": 19,
-                "name": "Kibe Hipercalórico",
-                "cat": "almoco",
-                "cal": "2080 kcal (receita)",
-                "icon": "fa-drumstick-bite",
-                "ing": "Trigo para kibe, proteína soja, aveia, lentilha, temperos.",
-                "steps": "1. Hidrate trigo e soja.\n2. Cozinhe lentilha.\n3. Misture tudo, tempere e asse por 30min."
-            },
-            {
-                "id": 20,
-                "name": "Hamburgão de Forno",
-                "cat": "almoco",
-                "cal": "1600 kcal (receita)",
-                "icon": "fa-hamburger",
-                "ing": "Farinha integral/branca, fermento, proteina soja (recheio), tomate.",
-                "steps": "1. Faça massa de pão.\n2. Faça hambúrguer de soja.\n3. Envolva carne na massa e asse."
-            },
-            {
-                "id": 21,
-                "name": "Guacamole Low Carb",
-                "cat": "lowcarb",
-                "cal": "490 kcal",
-                "icon": "fa-lemon",
-                "ing": "1/2 abacate, limão, azeite, temperos secos.",
-                "steps": "1. Amasse abacate.\n2. Misture com limão, azeite e temperos."
-            },
-            {
-                "id": 22,
-                "name": "Salada Folhas e Castanhas",
-                "cat": "lowcarb",
-                "cal": "217 kcal",
-                "icon": "fa-leaf",
-                "ing": "Alface, agrião, nozes, castanha caju/pará, molho vinagre/azeite.",
-                "steps": "1. Misture folhas.\n2. Salpique castanhas.\n3. Regue com molho."
-            },
-            {
-                "id": 23,
-                "name": "Panqueca Castanha",
-                "cat": "lowcarb",
-                "cal": "231 kcal",
-                "icon": "fa-stroopwafel",
-                "ing": "1 ovo, 1cs farinha castanha caju, creme leite, parmesão.",
-                "steps": "1. Bata tudo.\n2. Asse em frigideira como panqueca."
-            },
-            {
-                "id": 24,
-                "name": "Pão Cetogênico",
-                "cat": "lowcarb",
-                "cal": "134 kcal",
-                "icon": "fa-bread-slice",
-                "ing": "1 ovo, 1cs farinha coco.",
-                "steps": "1. Misture ovo e farinha.\n2. Microondas 1:30min.\n3. Doure na frigideira."
-            },
-            {
-                "id": 25,
-                "name": "Tartar de Salmão",
-                "cat": "lowcarb",
-                "cal": "981 kcal (total)",
-                "icon": "fa-fish",
-                "ing": "300g salmão, azeite, mostarda dijon, abacate (guacamole).",
-                "steps": "1. Pique salmão e tempere.\n2. Faça guacamole.\n3. Monte em camadas."
-            },
-            {
-                "id": 26,
-                "name": "Arroz de Couve Flor",
-                "cat": "lowcarb",
-                "cal": "234 kcal",
-                "icon": "fa-utensils",
-                "ing": "Couve flor, manteiga ghee, sal.",
-                "steps": "1. Processe couve flor crua até virar 'grãos'.\n2. Refogue na ghee com temperos."
-            },
-            {
-                "id": 27,
-                "name": "Bauru de Travessa",
-                "cat": "lowcarb",
-                "cal": "430 kcal",
-                "icon": "fa-layer-group",
-                "ing": "1 ovo, 2cs requeijão, fermento, mussarela, peito peru, tomate.",
-                "steps": "1. Misture ovo/requeijão/fermento (massa).\n2. Microondas 2:30min.\n3. Recheie e toste."
-            },
-            {
-                "id": 28,
-                "name": "Pizza de Frigideira Fit",
-                "cat": "proteica",
-                "cal": "663 kcal (massa)",
-                "icon": "fa-pizza-slice",
-                "ing": "3 ovos, 300g frango desfiado, azeite.",
-                "steps": "1. Bata tudo no liquidificador.\n2. Asse na frigideira.\n3. Recheie e gratine."
-            },
-            {
-                "id": 29,
-                "name": "Torta de Maçã Frigideira",
-                "cat": "lowcarb",
-                "cal": "317 kcal",
-                "icon": "fa-apple-alt",
-                "ing": "1 ovo, 1/2 maçã, farinha amêndoa, creme leite, fermento.",
-                "steps": "1. Fatie maçã na frigideira untada.\n2. Cubra com massa batida.\n3. Asse tampado."
-            },
-            {
-                "id": 30,
-                "name": "Torta de Atum Proteica",
-                "cat": "proteica",
-                "cal": "Alta",
-                "icon": "fa-fish",
-                "ing": "Farinha integral, whey sem sabor, ovos, leite soja, atum, ervilhas.",
-                "steps": "1. Bata massa.\n2. Misture recheio.\n3. Asse em camadas por 25min a 230ºC."
-            },
-            {
-                "id": 31,
-                "name": "Brigadeiro Proteico Pasta",
-                "cat": "doce",
-                "cal": "Moderada",
-                "icon": "fa-circle",
-                "ing": "60g whey, 3cs leite coco, 1cs pasta amendoim.",
-                "steps": "1. Misture tudo até virar massa.\n2. Enrole."
-            },
-            {
-                "id": 32,
-                "name": "Hambúrguer de Atum",
-                "cat": "proteica",
-                "cal": "Baixa",
-                "icon": "fa-hamburger",
-                "ing": "1 lata atum, cenoura, amaranto, mostarda, pasta tofu.",
-                "steps": "1. Processe vegetais.\n2. Misture com atum e amaranto.\n3. Molde e grelhe."
-            },
-            {
-                "id": 33,
-                "name": "Vitamina Banana Proteica",
-                "cat": "almoco",
-                "cal": "Média",
-                "icon": "fa-blender",
-                "ing": "1 banana, iogurte desnatado, 30g whey, canela, café, leite.",
-                "steps": "1. Bata tudo no liquidificador."
-            },
-            {
-                "id": 34,
-                "name": "Hambúrguer Clássico",
-                "cat": "proteica",
-                "cal": "Média",
-                "icon": "fa-hamburger",
-                "ing": "500g patinho moído, 1 ovo, cebola, alho.",
-                "steps": "1. Misture carne e temperos.\n2. Molde e grelhe."
-            },
-            {
-                "id": 35,
-                "name": "Hambúrguer Frango Aveia",
-                "cat": "proteica",
-                "cal": "Baixa",
-                "icon": "fa-drumstick-bite",
-                "ing": "500g frango desfiado, 1 ovo, aveia flocos.",
-                "steps": "1. Misture ingredientes.\n2. Molde e grelhe."
-            },
-            {
-                "id": 36,
-                "name": "Escondidinho Batata Doce",
-                "cat": "almoco",
-                "cal": "Média",
-                "icon": "fa-layer-group",
-                "ing": "3 batatas doces, 250g frango desfiado, molho tomate, cottage.",
-                "steps": "1. Purê de batata.\n2. Recheio de frango com molho.\n3. Asse."
-            },
-            {
-                "id": 37,
-                "name": "Panqueca Integral",
-                "cat": "almoco",
-                "cal": "Média",
-                "icon": "fa-stroopwafel",
-                "ing": "Leite, ovos, aveia, farinha integral. Recheio: Peru/Cottage.",
-                "steps": "1. Bata massa.\n2. Frite discos.\n3. Recheie."
-            },
-            {
-                "id": 38,
-                "name": "Ovos com Lentilha",
-                "cat": "proteica",
-                "cal": "Média",
-                "icon": "fa-egg",
-                "ing": "Lentilhas cozidas, 4 ovos, pimentão vermelho.",
-                "steps": "1. Refogue lentilhas.\n2. Grelhe anéis de pimentão.\n3. Frite ovo dentro do anel."
-            },
-            {
-                "id": 39,
-                "name": "Barra Pasta Amendoim",
-                "cat": "doce",
-                "cal": "Alta",
-                "icon": "fa-candy-cane",
-                "ing": "Mel, açúcar mascavo, pasta amendoim, aveia, linhaça.",
-                "steps": "1. Aqueça mel/açúcar.\n2. Misture pasta e secos.\n3. Gele e corte."
-            },
-            {
-                "id": 40,
-                "name": "Panqueca Pasta Amendoim",
-                "cat": "doce",
-                "cal": "Média",
-                "icon": "fa-stroopwafel",
-                "ing": "Farinha, farelo trigo, ovo, pasta amendoim, leite.",
-                "steps": "1. Misture tudo.\n2. Asse em frigideira."
-            },
-            {
-                "id": 41,
-                "name": "Smoothie Amendoim",
-                "cat": "doce",
-                "cal": "Média",
-                "icon": "fa-blender",
-                "ing": "1 scoop whey, 1 banana, 1cs pasta amendoim, leite.",
-                "steps": "1. Bata tudo com gelo."
-            },
-            {
-                "id": 42,
-                "name": "Brigadeiro Amendoim",
-                "cat": "doce",
-                "cal": "Média",
-                "icon": "fa-circle",
-                "ing": "Pasta amendoim, whey chocolate, alfarroba, cacau.",
-                "steps": "1. Aqueça pasta.\n2. Misture pós.\n3. Enrole."
-            },
-            {
-                "id": 43,
-                "name": "Sanduíche Amendoim/Geleia",
-                "cat": "doce",
-                "cal": "Alta",
-                "icon": "fa-bread-slice",
-                "ing": "Pão integral, pasta amendoim, geleia sem açúcar.",
-                "steps": "1. Monte o sanduíche clássico."
-            },
-            {
-                "id": 44,
-                "name": "Granola Pasta Amendoim",
-                "cat": "doce",
-                "cal": "Alta",
-                "icon": "fa-seedling",
-                "ing": "Pasta amendoim, mel, aveia, canela.",
-                "steps": "1. Derreta pasta e mel.\n2. Misture aveia.\n3. Asse 8 min."
-            },
-            {
-                "id": 45,
-                "name": "Salada Feijão Roxo",
-                "cat": "lowcarb",
-                "cal": "Média",
-                "icon": "fa-leaf",
-                "ing": "Feijão roxo, grão bico, cebola roxa, tomate, pepino.",
-                "steps": "1. Misture tudo com limão e azeite."
-            },
-            {
-                "id": 46,
-                "name": "Salada Tailandesa",
-                "cat": "almoco",
-                "cal": "Média",
-                "icon": "fa-leaf",
-                "ing": "Alface, pimentão, manga, amendoim, coentro.",
-                "steps": "1. Misture ingredientes.\n2. Tempere com óleo gergelim (opcional)."
-            },
-            {
-                "id": 47,
-                "name": "Salada Grão de Bico/Dill",
-                "cat": "almoco",
-                "cal": "Média",
-                "icon": "fa-leaf",
-                "ing": "Grão bico, cenoura, aipo, semente abóbora, dill.",
-                "steps": "1. Misture tudo com azeite e vinagre."
-            },
-            {
-                "id": 48,
-                "name": "Salada Tomate Seco/Quinoa",
-                "cat": "almoco",
-                "cal": "Média",
-                "icon": "fa-leaf",
-                "ing": "Quinoa, tomate seco, espinafre, amêndoas.",
-                "steps": "1. Misture tudo com molho de limão e mostarda."
-            },
-            {
-                "id": 49,
-                "name": "Salada Colorida Beterraba",
-                "cat": "almoco",
-                "cal": "Média",
-                "icon": "fa-leaf",
-                "ing": "Quinoa, edamame, beterraba, cenoura, espinafre, abacate.",
-                "steps": "1. Misture vegetais.\n2. Tempere com mel e mostarda."
-            },
-            {
-                "id": 50,
-                "name": "Salada Grega Brócolis",
-                "cat": "lowcarb",
-                "cal": "Baixa",
-                "icon": "fa-leaf",
-                "ing": "Brócolis, tomate seco, cebola roxa, queijo feta, amêndoas.",
-                "steps": "1. Misture tudo com azeite e limão."
-            },
-            {
-                "id": 51,
-                "name": "Salada Batata Doce",
-                "cat": "almoco",
-                "cal": "Média",
-                "icon": "fa-leaf",
-                "ing": "Batata doce cozida, salsinha, cebolinha, mostarda dijon.",
-                "steps": "1. Tempere as batatas com o molho de mostarda."
-            },
-            {
-                "id": 52,
-                "name": "Barra Proteína 1",
-                "cat": "proteica",
-                "cal": "Alta",
-                "icon": "fa-candy-cane",
-                "ing": "Aveia, pasta amendoim, whey, linhaça.",
-                "steps": "1. Misture e congele.\n2. Corte."
-            },
-            {
-                "id": 53,
-                "name": "Barra Proteína 2",
-                "cat": "proteica",
-                "cal": "Média",
-                "icon": "fa-candy-cane",
-                "ing": "Whey, claras, banana, batata doce, coco, cacau.",
-                "steps": "1. Misture tudo.\n2. Asse 10min.\n3. Corte."
-            },
-            {
-                "id": 54,
-                "name": "Pasta de Amendoim Caseira",
-                "cat": "proteica",
-                "cal": "Alta",
-                "icon": "fa-jar",
-                "ing": "Amendoim torrado sem pele.",
-                "steps": "1. Processe amendoim até virar pasta (tenha paciência)."
-            },
-            {
-                "id": 55,
-                "name": "Barra Cereal Tâmaras",
-                "cat": "doce",
-                "cal": "Média",
-                "icon": "fa-candy-cane",
-                "ing": "Amêndoas, tâmaras, ameixa, castanha, coco, chia, mel.",
-                "steps": "1. Processe tudo.\n2. Molde e gele."
-            },
-            {
-                "id": 56,
-                "name": "Barra Cereal Banana",
-                "cat": "doce",
-                "cal": "Média",
-                "icon": "fa-candy-cane",
-                "ing": "Aveia, claras, banana seca, banana fresca, mel.",
-                "steps": "1. Misture.\n2. Asse 15min a 180ºC.\n3. Corte."
-            },
-            {
-                "id": 57,
-                "name": "Maionese Fit",
-                "cat": "lowcarb",
-                "cal": "Média",
-                "icon": "fa-egg",
-                "ing": "3 ovos cozidos, limão, azeite, sal.",
-                "steps": "1. Bata ovos no liquidificador.\n2. Adicione azeite em fio até dar ponto."
-            },
-            {
-                "id": 58,
-                "name": "Nuggets Caseiro",
-                "cat": "proteica",
-                "cal": "Média",
-                "icon": "fa-drumstick-bite",
-                "ing": "500g frango moído, pão integral esfarelado, farinha milho (empanar).",
-                "steps": "1. Misture frango e pão.\n2. Molde.\n3. Empane no milho e asse."
-            },
-            {
-                "id": 59,
-                "name": "Frango Crocante Mostarda",
-                "cat": "proteica",
-                "cal": "Média",
-                "icon": "fa-drumstick-bite",
-                "ing": "Frango, aveia, ovos (empanar), mostarda, iogurte.",
-                "steps": "1. Empane frango na aveia.\n2. Asse.\n3. Sirva com molho mostarda/iogurte."
-            },
-            {
-                "id": 60,
-                "name": "Wrap de Frango",
-                "cat": "almoco",
-                "cal": "Média",
-                "icon": "fa-bread-slice",
-                "ing": "Frango cozido, maionese light, aipo, nozes, pão wrap.",
-                "steps": "1. Faça salada de frango.\n2. Enrole no pão."
-            },
-            {
-                "id": 61,
-                "name": "Frango Poá",
-                "cat": "lowcarb",
-                "cal": "Média",
-                "icon": "fa-drumstick-bite",
-                "ing": "Frango, pesto, pimentão, vinho branco, queijos.",
-                "steps": "1. Doure frango.\n2. Cozinhe com vinho e vegetais.\n3. Gratine com queijos."
-            },
-            {
-                "id": 62,
-                "name": "Frango Thai",
-                "cat": "almoco",
-                "cal": "Média",
-                "icon": "fa-drumstick-bite",
-                "ing": "Frango, macarrão integral, cogumelos, pasta amendoim.",
-                "steps": "1. Cozinhe macarrão.\n2. Refogue frango/cogumelos com molho de amendoim."
-            },
-            {
-                "id": 63,
-                "name": "Espetinho de Frango",
-                "cat": "proteica",
-                "cal": "Baixa",
-                "icon": "fa-drumstick-bite",
-                "ing": "Frango cubos, especiarias, iogurte (molho).",
-                "steps": "1. Tempere e espete.\n2. Grelhe.\n3. Sirva com molho."
-            },
-            {
-                "id": 64,
-                "name": "Frango à Rolê",
-                "cat": "proteica",
-                "cal": "Média",
-                "icon": "fa-drumstick-bite",
-                "ing": "Filés frango, mussarela, peito peru, manjericão.",
-                "steps": "1. Recheie filé e enrole.\n2. Grelhe/cozinhe fechado."
-            },
-            {
-                "id": 65,
-                "name": "Filé Frango Assado Cremoso",
-                "cat": "proteica",
-                "cal": "Média",
-                "icon": "fa-drumstick-bite",
-                "ing": "Filé frango, molho tomate, requeijão, queijo ralado.",
-                "steps": "1. Embrulhe no alumínio com molhos.\n2. Asse 20min."
-            },
-            {
-                "id": 66,
-                "name": "Bolinho Frango Batata Doce",
-                "cat": "proteica",
-                "cal": "Média",
-                "icon": "fa-cookie",
-                "ing": "100g frango, 50g batata doce.",
-                "steps": "1. Processe tudo.\n2. Molde bolinhas.\n3. Asse 20min."
-            },
-            {
-                "id": 67,
-                "name": "Torta Proteica Ovos",
-                "cat": "proteica",
-                "cal": "Baixa",
-                "icon": "fa-egg",
-                "ing": "6 ovos, 6 fatias peito peru.",
-                "steps": "1. Em forma cupcake, coloque peru e ovo dentro.\n2. Asse."
-            },
-            {
-                "id": 68,
-                "name": "Panqueca Ovo Aveia",
-                "cat": "proteica",
-                "cal": "Média",
-                "icon": "fa-stroopwafel",
-                "ing": "5 claras, 5cs aveia.",
-                "steps": "1. Bata e asse na frigideira."
-            },
-            {
-                "id": 69,
-                "name": "Omelete Proteico",
-                "cat": "proteica",
-                "cal": "Média",
-                "icon": "fa-egg",
-                "ing": "5 claras, 1 ovo, queijo branco.",
-                "steps": "1. Bata claras em neve.\n2. Misture resto.\n3. Frite."
-            },
-            {
-                "id": 70,
-                "name": "Bolo de Proteínas",
-                "cat": "doce",
-                "cal": "Média",
-                "icon": "fa-birthday-cake",
-                "ing": "6 claras, coco ralado, farinha aveia, limão.",
-                "steps": "1. Bata claras em neve.\n2. Misture secos.\n3. Asse 30min."
-            },
-            {
-                "id": 71,
-                "name": "Torta Proteica Frango (Massa Batata)",
-                "cat": "almoco",
-                "cal": "Média",
-                "icon": "fa-chart-pie",
-                "ing": "Batata doce, ovos, farinha berinjela, whey (massa). Frango/cottage (recheio).",
-                "steps": "1. Faça massa de batata.\n2. Recheie.\n3. Asse."
-            },
-            {
-                "id": 72,
-                "name": "Panqueca Salgada Whey",
-                "cat": "proteica",
-                "cal": "Baixa",
-                "icon": "fa-stroopwafel",
-                "ing": "1 scoop whey sem sabor, 1 ovo, aveia.",
-                "steps": "1. Bata e asse disco.\n2. Recheie a gosto."
-            },
-            {
-                "id": 73,
-                "name": "Coxinha Batata Doce",
-                "cat": "proteica",
-                "cal": "Média",
-                "icon": "fa-drumstick-bite",
-                "ing": "Batata doce, whey sem sabor (massa). Frango (recheio).",
-                "steps": "1. Massa de batata/whey.\n2. Recheie.\n3. Empane na aveia e asse."
-            },
-            {
-                "id": 74,
-                "name": "Pão Mandioca Whey",
-                "cat": "almoco",
-                "cal": "Média",
-                "icon": "fa-bread-slice",
-                "ing": "Mandioca, ovos, fermento, 2 xic whey.",
-                "steps": "1. Misture tudo sovando.\n2. Asse 30min."
-            },
-            {
-                "id": 75,
-                "name": "Brigadeiro Proteico Batata",
-                "cat": "doce",
-                "cal": "Baixa",
-                "icon": "fa-circle",
-                "ing": "Batata doce, whey chocolate, cacau.",
-                "steps": "1. Misture purê batata com whey.\n2. Enrole."
-            },
-            {
-                "id": 76,
-                "name": "Panqueca Whey Aveia (Doce)",
-                "cat": "doce",
-                "cal": "Média",
-                "icon": "fa-stroopwafel",
-                "ing": "Leite, claras, whey baunilha, aveia.",
-                "steps": "1. Bata e asse."
-            },
-            {
-                "id": 77,
-                "name": "Sorvete Banana Whey (Rápido)",
-                "cat": "doce",
-                "cal": "Baixa",
-                "icon": "fa-ice-cream",
-                "ing": "Banana congelada, whey, leite amêndoa.",
-                "steps": "1. Processe tudo."
-            }
+            { "id": 1, "name": "Frittata de Abobrinha", "cat": "lowcarb", "cal": "Baixa Caloria", "icon": "fa-leaf", "ing": "2 abobrinhas, 2 ovos, 1 dente de alho, cebolinha, salsinha, 1/2 xic farinha de aveia, fermento, tomate.", "steps": "1. Rale a abobrinha e retire a água.\n2. Misture com os ovos e ingredientes.\n3. Despeje em frigideira untada e doure 3min de cada lado." },
+            { "id": 2, "name": "Risoto Fit de Frango", "cat": "almoco", "cal": "Moderada", "icon": "fa-utensils", "ing": "150g frango cubos, 3cs arroz integral cozido, abobrinha, brócolis, cebola, 1cs cream cheese light.", "steps": "1. Refogue frango e legumes.\n2. Adicione o arroz cozido.\n3. Finalize com cream cheese e castanhas." },
+            { "id": 3, "name": "Hambúrguer de Quinoa", "cat": "lowcarb", "cal": "Baixa Caloria", "icon": "fa-hamburger", "ing": "100g quinoa em grãos, 2cs farinha de mandioca, cebolinha, manjericão, azeite.", "steps": "1. Cozinhe a quinoa.\n2. Misture com ervas e farinha.\n3. Molde e doure na frigideira." },
+            { "id": 4, "name": "Sorvete de Banana Proteico", "cat": "doce", "cal": "120 kcal", "icon": "fa-ice-cream", "ing": "2 bananas congeladas, 1 scoop whey protein.", "steps": "1. Bata as bananas congeladas no processador até virar creme.\n2. Adicione o whey e bata mais um pouco." },
+            { "id": 5, "name": "Cookies de Castanha", "cat": "doce", "cal": "Moderada", "icon": "fa-cookie", "ing": "1 xic castanha caju, 1.5 xic farinha coco, 3cs adoçante, leite de coco, gotas de chocolate amargo.", "steps": "1. Triture castanhas.\n2. Misture tudo.\n3. Molde cookies e asse 15min forno médio." },
+            { "id": 6, "name": "Sorvete Banana com Morango", "cat": "doce", "cal": "75 kcal", "icon": "fa-ice-cream", "ing": "2 bananas, 1 xic morangos.", "steps": "1. Congele as frutas picadas.\n2. Bata no processador até virar creme.\n3. Sirva imediatamente." },
+            { "id": 7, "name": "Pudim de Chia", "cat": "doce", "cal": "116 kcal", "icon": "fa-spoon", "ing": "1cs chia, 1/2 xic leite de coco, morangos, stevia.", "steps": "1. Hidrate a chia no leite de coco com stevia na geladeira (1 noite).\n2. Cubra com morangos." },
+            { "id": 8, "name": "Beijinho Fit", "cat": "doce", "cal": "318 kcal (total)", "icon": "fa-circle", "ing": "8cs leite em pó desnatado, 1cc óleo coco, adoçante, água quente, coco ralado.", "steps": "1. Bata ingredientes até dar ponto.\n2. Enrole e passe no coco ralado.\n3. Leve ao forno rápido para dourar." },
+            { "id": 9, "name": "Brigadeiro de Colher Biomassa", "cat": "doce", "cal": "178 kcal", "icon": "fa-spoon", "ing": "1 xic biomassa banana verde, adoçante, óleo coco, chocolate 70%, leite coco.", "steps": "1. Mexa biomassa, adoçante e óleo na panela.\n2. Adicione chocolate e leite de coco até dar ponto." },
+            { "id": 10, "name": "Trufa de Aveia", "cat": "doce", "cal": "149 kcal", "icon": "fa-cookie-bite", "ing": "1cs farelo aveia, açúcar mascavo, cacau em pó, pasta amendoim.", "steps": "1. Misture tudo até homogêneo.\n2. Faça bolinhas e passe no cacau." },
+            { "id": 11, "name": "Crepioca de Chocolate", "cat": "doce", "cal": "164 kcal", "icon": "fa-stroopwafel", "ing": "1 ovo, 1 clara, 1cs tapioca, adoçante, 1cs cacau.", "steps": "1. Misture e faça na frigideira como panqueca.\n2. Enrole como charuto. Pode por whey." },
+            { "id": 12, "name": "Shake Hipercalórico", "cat": "almoco", "cal": "648 kcal", "icon": "fa-blender", "ing": "2 scoops whey, 2 copos leite integral, 1 banana, 1/2 xic aveia.", "steps": "1. Bata tudo no liquidificador com gelo." },
+            { "id": 13, "name": "Sanduíche Frango e Abacate", "cat": "almoco", "cal": "716 kcal", "icon": "fa-bread-slice", "ing": "2 fatias pão, frango grelhado, 1 abacate maduro, limão, temperos.", "steps": "1. Faça pasta com abacate e limão.\n2. Monte sanduíche com frango e pasta." },
+            { "id": 14, "name": "X-Salada Bacon Egg", "cat": "almoco", "cal": "850 kcal", "icon": "fa-hamburger", "ing": "220g patinho moído, 1 ovo, 3 fatias mussarela, bacon, pão, salada.", "steps": "1. Grelhe hambúrguer e bacon.\n2. Frite o ovo.\n3. Monte o lanche completo." },
+            { "id": 15, "name": "Mingau Proteico", "cat": "proteica", "cal": "440 kcal", "icon": "fa-mug-hot", "ing": "12 claras, 1 gema, 1/2 xic aveia, canela.", "steps": "1. Bata no liquidificador.\n2. Cozinhe em fogo alto mexendo até engrossar." },
+            { "id": 16, "name": "Barra Proteína Caseira", "cat": "proteica", "cal": "Alto", "icon": "fa-candy-cane", "ing": "2 xic aveia, 1/2 xic pasta amendoim, 4 scoops whey, linhaça, água.", "steps": "1. Misture tudo.\n2. Espalhe em forma e congele por 30min.\n3. Corte em barras." },
+            { "id": 17, "name": "Salgado Maromba", "cat": "proteica", "cal": "456 kcal", "icon": "fa-cookie", "ing": "100g ricota, 50g couve-flor, farinha linhaça, clara, frango p/ recheio.", "steps": "1. Processe massa (ricota, couve, farinha).\n2. Recheie com frango.\n3. Asse 20min a 250ºC." },
+            { "id": 18, "name": "Hambúrguer Grão de Bico", "cat": "lowcarb", "cal": "567 kcal", "icon": "fa-leaf", "ing": "1.5 xic grão bico cozido, alho, cebola, farinha integral ou aveia.", "steps": "1. Processe grão de bico com temperos.\n2. Dê liga com farinha.\n3. Grelhe." },
+            { "id": 19, "name": "Kibe Hipercalórico", "cat": "almoco", "cal": "2080 kcal (receita)", "icon": "fa-drumstick-bite", "ing": "Trigo para kibe, proteína soja, aveia, lentilha, temperos.", "steps": "1. Hidrate trigo e soja.\n2. Cozinhe lentilha.\n3. Misture tudo, tempere e asse por 30min." },
+            { "id": 20, "name": "Hamburgão de Forno", "cat": "almoco", "cal": "1600 kcal (receita)", "icon": "fa-hamburger", "ing": "Farinha integral/branca, fermento, proteina soja (recheio), tomate.", "steps": "1. Faça massa de pão.\n2. Faça hambúrguer de soja.\n3. Envolva carne na massa e asse." },
+            { "id": 21, "name": "Guacamole Low Carb", "cat": "lowcarb", "cal": "490 kcal", "icon": "fa-lemon", "ing": "1/2 abacate, limão, azeite, temperos secos.", "steps": "1. Amasse abacate.\n2. Misture com limão, azeite e temperos." },
+            { "id": 22, "name": "Salada Folhas e Castanhas", "cat": "lowcarb", "cal": "217 kcal", "icon": "fa-leaf", "ing": "Alface, agrião, nozes, castanha caju/pará, molho vinagre/azeite.", "steps": "1. Misture folhas.\n2. Salpique castanhas.\n3. Regue com molho." },
+            { "id": 23, "name": "Panqueca Castanha", "cat": "lowcarb", "cal": "231 kcal", "icon": "fa-stroopwafel", "ing": "1 ovo, 1cs farinha castanha caju, creme leite, parmesão.", "steps": "1. Bata tudo.\n2. Asse em frigideira como panqueca." },
+            { "id": 24, "name": "Pão Cetogênico", "cat": "lowcarb", "cal": "134 kcal", "icon": "fa-bread-slice", "ing": "1 ovo, 1cs farinha coco.", "steps": "1. Misture ovo e farinha.\n2. Microondas 1:30min.\n3. Doure na frigideira." },
+            { "id": 25, "name": "Tartar de Salmão", "cat": "lowcarb", "cal": "981 kcal (total)", "icon": "fa-fish", "ing": "300g salmão, azeite, mostarda dijon, abacate (guacamole).", "steps": "1. Pique salmão e tempere.\n2. Faça guacamole.\n3. Monte em camadas." },
+            { "id": 26, "name": "Arroz de Couve Flor", "cat": "lowcarb", "cal": "234 kcal", "icon": "fa-utensils", "ing": "Couve flor, manteiga ghee, sal.", "steps": "1. Processe couve flor crua até virar 'grãos'.\n2. Refogue na ghee com temperos." },
+            { "id": 27, "name": "Bauru de Travessa", "cat": "lowcarb", "cal": "430 kcal", "icon": "fa-layer-group", "ing": "1 ovo, 2cs requeijão, fermento, mussarela, peito peru, tomate.", "steps": "1. Misture ovo/requeijão/fermento (massa).\n2. Microondas 2:30min.\n3. Recheie e toste." },
+            { "id": 28, "name": "Pizza de Frigideira Fit", "cat": "proteica", "cal": "663 kcal (massa)", "icon": "fa-pizza-slice", "ing": "3 ovos, 300g frango desfiado, azeite.", "steps": "1. Bata tudo no liquidificador.\n2. Asse na frigideira.\n3. Recheie e gratine." },
+            { "id": 29, "name": "Torta de Maçã Frigideira", "cat": "lowcarb", "cal": "317 kcal", "icon": "fa-apple-alt", "ing": "1 ovo, 1/2 maçã, farinha amêndoa, creme leite, fermento.", "steps": "1. Fatie maçã na frigideira untada.\n2. Cubra com massa batida.\n3. Asse tampado." },
+            { "id": 30, "name": "Torta de Atum Proteica", "cat": "proteica", "cal": "Alta", "icon": "fa-fish", "ing": "Farinha integral, whey sem sabor, ovos, leite soja, atum, ervilhas.", "steps": "1. Bata massa.\n2. Misture recheio.\n3. Asse em camadas por 25min a 230ºC." },
+            { "id": 31, "name": "Brigadeiro Proteico Pasta", "cat": "doce", "cal": "Moderada", "icon": "fa-circle", "ing": "60g whey, 3cs leite coco, 1cs pasta amendoim.", "steps": "1. Misture tudo até virar massa.\n2. Enrole." },
+            { "id": 32, "name": "Hambúrguer de Atum", "cat": "proteica", "cal": "Baixa", "icon": "fa-hamburger", "ing": "1 lata atum, cenoura, amaranto, mostarda, pasta tofu.", "steps": "1. Processe vegetais.\n2. Misture com atum e amaranto.\n3. Molde e grelhe." },
+            { "id": 33, "name": "Vitamina Banana Proteica", "cat": "almoco", "cal": "Média", "icon": "fa-blender", "ing": "1 banana, iogurte desnatado, 30g whey, canela, café, leite.", "steps": "1. Bata tudo no liquidificador." },
+            { "id": 34, "name": "Hambúrguer Clássico", "cat": "proteica", "cal": "Média", "icon": "fa-hamburger", "ing": "500g patinho moído, 1 ovo, cebola, alho.", "steps": "1. Misture carne e temperos.\n2. Molde e grelhe." },
+            { "id": 35, "name": "Hambúrguer Frango Aveia", "cat": "proteica", "cal": "Baixa", "icon": "fa-drumstick-bite", "ing": "500g frango desfiado, 1 ovo, aveia flocos.", "steps": "1. Misture ingredientes.\n2. Molde e grelhe." },
+            { "id": 36, "name": "Escondidinho Batata Doce", "cat": "almoco", "cal": "Média", "icon": "fa-layer-group", "ing": "3 batatas doces, 250g frango desfiado, molho tomate, cottage.", "steps": "1. Purê de batata.\n2. Recheio de frango com molho.\n3. Asse." },
+            { "id": 37, "name": "Panqueca Integral", "cat": "almoco", "cal": "Média", "icon": "fa-stroopwafel", "ing": "Leite, ovos, aveia, farinha integral. Recheio: Peru/Cottage.", "steps": "1. Bata massa.\n2. Frite discos.\n3. Recheie." },
+            { "id": 38, "name": "Ovos com Lentilha", "cat": "proteica", "cal": "Média", "icon": "fa-egg", "ing": "Lentilhas cozidas, 4 ovos, pimentão vermelho.", "steps": "1. Refogue lentilhas.\n2. Grelhe anéis de pimentão.\n3. Frite ovo dentro do anel." },
+            { "id": 39, "name": "Barra Pasta Amendoim", "cat": "doce", "cal": "Alta", "icon": "fa-candy-cane", "ing": "Mel, açúcar mascavo, pasta amendoim, aveia, linhaça.", "steps": "1. Aqueça mel/açúcar.\n2. Misture pasta e secos.\n3. Gele e corte." },
+            { "id": 40, "name": "Panqueca Pasta Amendoim", "cat": "doce", "cal": "Média", "icon": "fa-stroopwafel", "ing": "Farinha, farelo trigo, ovo, pasta amendoim, leite.", "steps": "1. Misture tudo.\n2. Asse em frigideira." },
+            { "id": 41, "name": "Smoothie Amendoim", "cat": "doce", "cal": "Média", "icon": "fa-blender", "ing": "1 scoop whey, 1 banana, 1cs pasta amendoim, leite.", "steps": "1. Bata tudo com gelo." },
+            { "id": 42, "name": "Brigadeiro Amendoim", "cat": "doce", "cal": "Média", "icon": "fa-circle", "ing": "Pasta amendoim, whey chocolate, alfarroba, cacau.", "steps": "1. Aqueça pasta.\n2. Misture pós.\n3. Enrole."
+            },
+            { "id": 43, "name": "Sanduíche Amendoim/Geleia", "cat": "doce", "cal": "Alta", "icon": "fa-bread-slice", "ing": "Pão integral, pasta amendoim, geleia sem açúcar.", "steps": "1. Monte o sanduíche clássico." },
+            { "id": 44, "name": "Granola Pasta Amendoim", "cat": "doce", "cal": "Alta", "icon": "fa-seedling", "ing": "Pasta amendoim, mel, aveia, canela.", "steps": "1. Derreta pasta e mel.\n2. Misture aveia.\n3. Asse 8 min." },
+            { "id": 45, "name": "Salada Feijão Roxo", "cat": "lowcarb", "cal": "Média", "icon": "fa-leaf", "ing": "Feijão roxo, grão bico, cebola roxa, tomate, pepino.", "steps": "1. Misture tudo com limão e azeite." },
+            { "id": 46, "name": "Salada Tailandesa", "cat": "almoco", "cal": "Média", "icon": "fa-leaf", "ing": "Alface, pimentão, manga, amendoim, coentro.", "steps": "1. Misture ingredientes.\n2. Tempere com óleo gergelim (opcional)." },
+            { "id": 47, "name": "Salada Grão de Bico/Dill", "cat": "almoco", "cal": "Média", "icon": "fa-leaf", "ing": "Grão bico, cenoura, aipo, semente abóbora, dill.", "steps": "1. Misture tudo com azeite e vinagre." },
+            { "id": 48, "name": "Salada Tomate Seco/Quinoa", "cat": "almoco", "cal": "Média", "icon": "fa-leaf", "ing": "Quinoa, tomate seco, espinafre, amêndoas.", "steps": "1. Misture tudo com molho de limão e mostarda." },
+            { "id": 49, "name": "Salada Colorida Beterraba", "cat": "almoco", "cal": "Média", "icon": "fa-leaf", "ing": "Quinoa, edamame, beterraba, cenoura, espinafre, abacate.", "steps": "1. Misture vegetais.\n2. Tempere com mel e mostarda." },
+            { "id": 50, "name": "Salada Grega Brócolis", "cat": "lowcarb", "cal": "Baixa", "icon": "fa-leaf", "ing": "Brócolis, tomate seco, cebola roxa, queijo feta, amêndoas.", "steps": "1. Misture tudo com azeite e limão." },
+            { "id": 51, "name": "Salada Batata Doce", "cat": "almoco", "cal": "Média", "icon": "fa-leaf", "ing": "Batata doce cozida, salsinha, cebolinha, mostarda dijon.", "steps": "1. Tempere as batatas com o molho de mostarda." },
+            { "id": 52, "name": "Barra Proteína 1", "cat": "proteica", "cal": "Alta", "icon": "fa-candy-cane", "ing": "Aveia, pasta amendoim, whey, linhaça.", "steps": "1. Misture e congele.\n2. Corte." },
+            { "id": 53, "name": "Barra Proteína 2", "cat": "proteica", "cal": "Média", "icon": "fa-candy-cane", "ing": "Whey, claras, banana, batata doce, coco, cacau.", "steps": "1. Misture tudo.\n2. Asse 10min.\n3. Corte." },
+            { "id": 54, "name": "Pasta de Amendoim Caseira", "cat": "proteica", "cal": "Alta", "icon": "fa-jar", "ing": "Amendoim torrado sem pele.", "steps": "1. Processe amendoim até virar pasta (tenha paciência)." },
+            { "id": 55, "name": "Barra Cereal Tâmaras", "cat": "doce", "cal": "Média", "icon": "fa-candy-cane", "ing": "Amêndoas, tâmaras, ameixa, castanha, coco, chia, mel.", "steps": "1. Processe tudo.\n2. Molde e gele." },
+            { "id": 56, "name": "Barra Cereal Banana", "cat": "doce", "cal": "Média", "icon": "fa-candy-cane", "ing": "Aveia, claras, banana seca, banana fresca, mel.", "steps": "1. Misture.\n2. Asse 15min a 180ºC.\n3. Corte." },
+            { "id": 57, "name": "Maionese Fit", "cat": "lowcarb", "cal": "Média", "icon": "fa-egg", "ing": "3 ovos cozidos, limão, azeite, sal.", "steps": "1. Bata ovos no liquidificador.\n2. Adicione azeite em fio até dar ponto." },
+            { "id": 58, "name": "Nuggets Caseiro", "cat": "proteica", "cal": "Média", "icon": "fa-drumstick-bite", "ing": "500g frango moído, pão integral esfarelado, farinha milho (empanar).", "steps": "1. Misture frango e pão.\n2. Molde.\n3. Empane no milho e asse." },
+            { "id": 59, "name": "Frango Crocante Mostarda", "cat": "proteica", "cal": "Média", "icon": "fa-drumstick-bite", "ing": "Frango, aveia, ovos (empanar), mostarda, iogurte.", "steps": "1. Empane frango na aveia.\n2. Asse.\n3. Sirva com molho mostarda/iogurte." },
+            { "id": 60, "name": "Wrap de Frango", "cat": "almoco", "cal": "Média", "icon": "fa-bread-slice", "ing": "Frango cozido, maionese light, aipo, nozes, pão wrap.", "steps": "1. Faça salada de frango.\n2. Enrole no pão." },
+            { "id": 61, "name": "Frango Poá", "cat": "lowcarb", "cal": "Média", "icon": "fa-drumstick-bite", "ing": "Frango, pesto, pimentão, vinho branco, queijos.", "steps": "1. Doure frango.\n2. Cozinhe com vinho e vegetais.\n3. Gratine com queijos." },
+            { "id": 62, "name": "Frango Thai", "cat": "almoco", "cal": "Média", "icon": "fa-drumstick-bite", "ing": "Frango, macarrão integral, cogumelos, pasta amendoim.", "steps": "1. Cozinhe macarrão.\n2. Refogue frango/cogumelos com molho de amendoim." },
+            { "id": 63, "name": "Espetinho de Frango", "cat": "proteica", "cal": "Baixa", "icon": "fa-drumstick-bite", "ing": "Frango cubos, especiarias, iogurte (molho).", "steps": "1. Tempere e espete.\n2. Grelhe.\n3. Sirva com molho." },
+            { "id": 64, "name": "Frango à Rolê", "cat": "proteica", "cal": "Média", "icon": "fa-drumstick-bite", "ing": "Filés frango, mussarela, peito peru, manjericão.", "steps": "1. Recheie filé e enrole.\n2. Grelhe/cozinhe fechado." },
+            { "id": 65, "name": "Filé Frango Assado Cremoso", "cat": "proteica", "cal": "Média", "icon": "fa-drumstick-bite", "ing": "Filé frango, molho tomate, requeijão, queijo ralado.", "steps": "1. Embrulhe no alumínio com molhos.\n2. Asse 20min." },
+            { "id": 66, "name": "Bolinho Frango Batata Doce", "cat": "proteica", "cal": "Média", "icon": "fa-cookie", "ing": "100g frango, 50g batata doce.", "steps": "1. Processe tudo.\n2. Molde bolinhas.\n3. Asse 20min." },
+            { "id": 67, "name": "Torta Proteica Ovos", "cat": "proteica", "cal": "Baixa", "icon": "fa-egg", "ing": "6 ovos, 6 fatias peito peru.", "steps": "1. Em forma cupcake, coloque peru e ovo dentro.\n2. Asse." },
+            { "id": 68, "name": "Panqueca Ovo Aveia", "cat": "proteica", "cal": "Média", "icon": "fa-stroopwafel", "ing": "5 claras, 5cs aveia.", "steps": "1. Bata e asse na frigideira." },
+            { "id": 69, "name": "Omelete Proteico", "cat": "proteica", "cal": "Média", "icon": "fa-egg", "ing": "5 claras, 1 ovo, queijo branco.", "steps": "1. Bata claras em neve.\n2. Misture resto.\n3. Frite." },
+            { "id": 70, "name": "Bolo de Proteínas", "cat": "doce", "cal": "Média", "icon": "fa-birthday-cake", "ing": "6 claras, coco ralado, farinha aveia, limão.", "steps": "1. Bata claras em neve.\n2. Misture secos.\n3. Asse 30min." },
+            { "id": 71, "name": "Torta Proteica Frango (Massa Batata)", "cat": "almoco", "cal": "Média", "icon": "fa-chart-pie", "ing": "Batata doce, ovos, farinha berinjela, whey (massa). Frango/cottage (recheio).", "steps": "1. Faça massa de batata.\n2. Recheie.\n3. Asse." },
+            { "id": 72, "name": "Panqueca Salgada Whey", "cat": "proteica", "cal": "Baixa", "icon": "fa-stroopwafel", "ing": "1 scoop whey sem sabor, 1 ovo, aveia.", "steps": "1. Bata e asse disco.\n2. Recheie a gosto." },
+            { "id": 73, "name": "Coxinha Batata Doce", "cat": "proteica", "cal": "Média", "icon": "fa-drumstick-bite", "ing": "Batata doce, whey sem sabor (massa). Frango (recheio).", "steps": "1. Massa de batata/whey.\n2. Recheie.\n3. Empane na aveia e asse." },
+            { "id": 74, "name": "Pão Mandioca Whey", "cat": "almoco", "cal": "Média", "icon": "fa-bread-slice", "ing": "Mandioca, ovos, fermento, 2 xic whey.", "steps": "1. Misture tudo sovando.\n2. Asse 30min." },
+            { "id": 75, "name": "Brigadeiro Proteico Batata", "cat": "doce", "cal": "Baixa", "icon": "fa-circle", "ing": "Batata doce, whey chocolate, cacau.", "steps": "1. Misture purê batata com whey.\n2. Enrole." },
+            { "id": 76, "name": "Panqueca Whey Aveia (Doce)", "cat": "doce", "cal": "Média", "icon": "fa-stroopwafel", "ing": "Leite, claras, whey baunilha, aveia.", "steps": "1. Bata e asse." },
+            { "id": 77, "name": "Sorvete Banana Whey (Rápido)", "cat": "doce", "cal": "Baixa", "icon": "fa-ice-cream", "ing": "Banana congelada, whey, leite amêndoa.", "steps": "1. Processe tudo." }
         ];
 
-        // --- LOGIC ---
-
         // 1. Neuro-Trainer Logic (Rule Based)
+        const exerciseDB = {
+            peito: ["Supino Reto (Barra/Halter)", "Supino Inclinado", "Crucifixo (Máquina/Halter)", "Crossover", "Flexão de Braços"],
+            costas: ["Puxada Frente", "Remada Curvada", "Remada Baixa", "Serrote", "Levantamento Terra", "Pulldown"],
+            pernas: ["Agachamento Livre", "Leg Press 45", "Cadeira Extensora", "Mesa Flexora", "Stiff", "Afundo", "Panturrilha em Pé"],
+            ombros: ["Desenvolvimento", "Elevação Lateral", "Elevação Frontal", "Crucifixo Inverso", "Remada Alta"],
+            biceps: ["Rosca Direta", "Rosca Scott", "Rosca Martelo", "Rosca Concentrada"],
+            triceps: ["Tríceps Corda", "Tríceps Testa", "Tríceps Francês", "Mergulho/Paralelas"],
+            gluteos: ["Elevação Pélvica", "Agachamento Sumô", "Coice na Polia", "Cadeira Abdutora"],
+            abs: ["Abdominal Supra", "Prancha Ventral", "Abdominal Infra", "Russian Twist"]
+        };
+
         function generateFullWorkout() {
             const weight = document.getElementById('w-weight').value;
             const split = document.getElementById('w-split').value;
@@ -1105,8 +576,7 @@
             
             if(!weight) { alert("Por favor, insira seu peso."); return; }
 
-            // Water Calculation
-            const waterIntake = (weight * 0.05).toFixed(1); // ~50ml per kg for active people
+            const waterIntake = (weight * 0.05).toFixed(1); 
 
             let routineHTML = "";
             let splitsData = getSplits(split, gender, goal);
@@ -1134,7 +604,6 @@
 
             const finalHTML = `
                 <div class="space-y-6">
-                    <!-- Header Info -->
                     <div class="bg-dark-900 p-4 rounded border border-white/10 flex justify-between items-center flex-wrap gap-4">
                         <div>
                             <p class="text-xs text-gray-500 uppercase">Protocolo</p>
@@ -1150,10 +619,7 @@
                             <p class="text-[10px] text-gray-400 mt-1">Durante o treino: 500ml-1L.</p>
                         </div>
                     </div>
-
-                    <!-- Routine -->
                     ${routineHTML}
-
                     <div class="text-center text-xs text-gray-500 mt-8 pt-4 border-t border-white/5">
                         <p>Green Monster Project © - Gerado em ${new Date().toLocaleDateString()}</p>
                     </div>
@@ -1164,12 +630,10 @@
         }
 
         function getSplits(split, gender, goal) {
-            // Logic Engine based on PDF principles
             const isMass = goal === 'hipertrofia' || goal === 'forca';
             const reps = isMass ? "8-12" : "12-15";
             const sets = isMass ? "3-4" : "3";
             
-            // Sample structure builder
             let days = [];
 
             if (split === 'AB') {
@@ -1197,19 +661,7 @@
 
         function buildDay(muscleGroups, sets, reps) {
             let exs = [];
-            const exerciseDB = {
-                peito: ["Supino Reto (Barra/Halter)", "Supino Inclinado", "Crucifixo (Máquina/Halter)", "Crossover", "Flexão de Braços"],
-                costas: ["Puxada Frente", "Remada Curvada", "Remada Baixa", "Serrote", "Levantamento Terra", "Pulldown"],
-                pernas: ["Agachamento Livre", "Leg Press 45", "Cadeira Extensora", "Mesa Flexora", "Stiff", "Afundo", "Panturrilha em Pé"],
-                ombros: ["Desenvolvimento", "Elevação Lateral", "Elevação Frontal", "Crucifixo Inverso", "Remada Alta"],
-                biceps: ["Rosca Direta", "Rosca Scott", "Rosca Martelo", "Rosca Concentrada"],
-                triceps: ["Tríceps Corda", "Tríceps Testa", "Tríceps Francês", "Mergulho/Paralelas"],
-                gluteos: ["Elevação Pélvica", "Agachamento Sumô", "Coice na Polia", "Cadeira Abdutora"],
-                abs: ["Abdominal Supra", "Prancha Ventral", "Abdominal Infra", "Russian Twist"]
-            };
-
             muscleGroups.forEach(group => {
-                // Pick 2-3 exercises per group
                 let picks = exerciseDB[group].slice(0, group === 'abs' ? 2 : 3);
                 picks.forEach(p => {
                     exs.push({ name: p, sets: sets, reps: reps, tech: "Falha" });
@@ -1218,13 +670,11 @@
             return exs;
         }
 
-        // --- EXPORT FUNCTIONS ---
         function exportPDF() {
             window.print();
         }
 
         function exportExcel() {
-            // Simple CSV generation from the table data currently displayed
             let csvContent = "data:text/csv;charset=utf-8,";
             csvContent += "Dia,Exercicio,Series,Repeticoes,Tecnica\n";
 
@@ -1237,7 +687,6 @@
                 let dayTitle = titles[index].innerText;
                 let rows = table.querySelectorAll('tr');
                 
-                // Skip header row (index 0)
                 for (let i = 1; i < rows.length; i++) {
                     let cols = rows[i].querySelectorAll('td');
                     let rowData = [dayTitle];
@@ -1281,7 +730,6 @@
         }
 
         function filterRecipes(cat, btnElement) {
-            // Visual update for buttons
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
                 btn.classList.remove('text-white');
@@ -1299,14 +747,12 @@
             renderRecipes(cat);
         }
 
-        // Modal Logic
         function openRecipeModal(id) {
             const r = recipesDB.find(x => x.id === id);
             if (!r) return;
             
             document.getElementById('modal-title').innerText = r.name;
             
-            // Split ingredients by comma if it's a simple string, or handle lists
             let ingredientsList = r.ing.split(',').map(i => `<li>${i.trim()}</li>`).join('');
             document.getElementById('modal-ingredients').innerHTML = ingredientsList;
             
@@ -1325,7 +771,6 @@
 
             if(!weight || !height) return;
 
-            // IMC
             const heightM = height / 100;
             const imc = (weight / (heightM * heightM)).toFixed(1);
             let imcStatus = "";
@@ -1342,7 +787,6 @@
             document.getElementById('res-imc-status').className = "text-sm font-bold " + color;
             document.getElementById('imc-bar').style.width = barWidth;
 
-            // TMB & TDEE
             if(age) {
                 let bmr = (10 * weight) + (6.25 * height) - (5 * age);
                 bmr += (gender === 'm' ? 5 : -161);
@@ -1357,7 +801,6 @@
             document.getElementById('calc-results').classList.remove('hidden');
         }
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             renderRecipes('all');
         });
